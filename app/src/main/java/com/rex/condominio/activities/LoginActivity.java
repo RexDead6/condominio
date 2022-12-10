@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
+import com.google.gson.Gson;
 import com.rex.condominio.R;
 import com.rex.condominio.dialogs.DialogProgress;
 import com.rex.condominio.retrofit.RetrofitClient;
@@ -58,16 +59,17 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseClient<LoginResponse>> call, Response<ResponseClient<LoginResponse>> response) {
                     dialogProgress.dismiss();
-                    if (response.body().isStatus()){
+                    if (response.code() == 200){
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                         return;
                     }
 
+                    ResponseClient<LoginResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
 
                     new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage(response.body().getMessage())
+                            .setMessage(errorResponse.getMessage())
                             .setPositiveButton("Aceptar", (d, v) -> d.dismiss())
                             .create().show();
                 }
