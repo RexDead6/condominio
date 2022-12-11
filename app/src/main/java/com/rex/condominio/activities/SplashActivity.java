@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.rex.condominio.R;
+import com.rex.condominio.utils.SupportPreferences;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,8 +20,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
-        if (true){
+        String idUser = SupportPreferences.getInstance(this).getPreference(SupportPreferences.USER_ID_PREFERENCE);
+        if (idUser.equals("")){
             new Handler().postDelayed(() -> {
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);

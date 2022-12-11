@@ -16,6 +16,7 @@ import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.request.LoginRequest;
 import com.rex.condominio.retrofit.response.LoginResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
+import com.rex.condominio.utils.SupportPreferences;
 
 import at.markushi.ui.CircleButton;
 import retrofit2.Call;
@@ -59,10 +60,14 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<ResponseClient<LoginResponse>> call, Response<ResponseClient<LoginResponse>> response) {
                     dialogProgress.dismiss();
-                    if (response.code() == 200){
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                    if (response.code() == 200) {
+                        SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.USER_ID_PREFERENCE, response.body().getData().getId() + "");
+                        if (response.body().getData().getStatusUsu() == 1) {
+                            SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.FAM_ID_PREFERENCE, response.body().getData().getIdFam() + "");
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
                         return;
                     }
 
@@ -83,14 +88,14 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private boolean validate_inputs(){
+    private boolean validate_inputs() {
         boolean success = true;
-        if (et_cedula.getText().toString().isEmpty()){
+        if (et_cedula.getText().toString().isEmpty()) {
             et_cedula.setError("Ingrese su cedula");
             success = false;
         }
 
-        if (et_clave.getText().toString().isEmpty()){
+        if (et_clave.getText().toString().isEmpty()) {
             et_clave.setError("Ingrese su clave");
             success = false;
         }
