@@ -9,11 +9,12 @@ public class FamiliaResponse {
     private String direccion;
     private ArrayList<UsuarioResponse> users;
 
-    public FamiliaResponse(int idFam, String descFam, String hashFam, String direccion) {
+    public FamiliaResponse(int idFam, String descFam, String hashFam, String direccion, ArrayList<UsuarioResponse> users) {
         this.idFam = idFam;
         this.descFam = descFam;
         this.hashFam = hashFam;
         this.direccion = direccion;
+        this.users = users;
     }
 
     public int getIdFam() {
@@ -46,5 +47,13 @@ public class FamiliaResponse {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public ArrayList<UsuarioResponse> getUsers() {
+        return users;
+    }
+
+    public void setUsers(ArrayList<UsuarioResponse> users) {
+        this.users = users;
     }
 }

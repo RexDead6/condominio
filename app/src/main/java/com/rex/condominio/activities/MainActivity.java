@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.rex.condominio.R;
+import com.rex.condominio.fragments.FamiliaFragment;
+import com.rex.condominio.utils.SupportPreferences;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,5 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SupportPreferences.loadFrament(new FamiliaFragment(), getSupportFragmentManager().beginTransaction(), false);
     }
 }
