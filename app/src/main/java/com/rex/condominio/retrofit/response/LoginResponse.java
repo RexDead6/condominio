@@ -1,47 +1,17 @@
 package com.rex.condominio.retrofit.response;
 
 public class LoginResponse {
-    private int id;
-    private int idFam;
-    private int statusUsu;
-    private RolResponse Rol;
+    private String token;
 
-    public LoginResponse(int id, int idFam, int statusUsu, RolResponse rol) {
-        this.id = id;
-        this.idFam = idFam;
-        this.statusUsu = statusUsu;
-        Rol = rol;
+    public LoginResponse(String token) {
+        this.token = token;
     }
 
-    public int getId() {
-        return id;
+    public String getToken() {
+        return token;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getIdFam() {
-        return idFam;
-    }
-
-    public void setIdFam(int idFam) {
-        this.idFam = idFam;
-    }
-
-    public int getStatusUsu() {
-        return statusUsu;
-    }
-
-    public void setStatusUsu(int statusUsu) {
-        this.statusUsu = statusUsu;
-    }
-
-    public RolResponse getRol() {
-        return Rol;
-    }
-
-    public void setRol(RolResponse rol) {
-        Rol = rol;
+    public void setToken(String token) {
+        this.token = token;
     }
 }

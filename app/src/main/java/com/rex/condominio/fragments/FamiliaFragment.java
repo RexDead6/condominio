@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.rex.condominio.R;
 import com.rex.condominio.activities.LoginActivity;
+import com.rex.condominio.adapters.FamiliaAdapter;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
 import com.rex.condominio.retrofit.response.LoginResponse;
@@ -53,7 +55,7 @@ public class FamiliaFragment extends Fragment {
         recycler_familia = v.findViewById(R.id.recycler_familia);
 
         Call<ResponseClient<FamiliaResponse>> call = RetrofitClient.getInstance().getRequestInterface().getFamilia(
-                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.FAM_ID_PREFERENCE)
+                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
         );
         call.enqueue(new Callback<ResponseClient<FamiliaResponse>>() {
             @Override
@@ -65,6 +67,8 @@ public class FamiliaFragment extends Fragment {
                     tv_direccion.setText(response.body().getData().getDireccion());
                     tv_desc.setText(response.body().getData().getDescFam());
 
+                    recycler_familia.setAdapter(new FamiliaAdapter(getContext(), response.body().getData().getUsers()));
+                    recycler_familia.setLayoutManager(new LinearLayoutManager(getContext()));
                     return;
                 }
 

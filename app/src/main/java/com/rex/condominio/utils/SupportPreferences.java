@@ -12,12 +12,12 @@ import com.rex.condominio.R;
 public class SupportPreferences extends Application {
 
     public static final String BASE_URL = "http://192.168.1.100/proyectos/apirest/api/";
+    public static final String IMG_URL = "http://192.168.1.100/proyectos/apirest/assets/";
     SharedPreferences mpPreferences;
     private static SupportPreferences instance;
 
-    private final String PREFERENCE_ARCHIVE  = "CONDOMINIO.PREFERENCES";
-    public static final String USER_ID_PREFERENCE  = "CONDIMINIO.USER_ID";
-    public static final String FAM_ID_PREFERENCE  = "CONDIMINIO.FAM_ID";
+    private final String ARCHIVE_PREFERENCE  = "CONDOMINIO.PREFERENCES";
+    public static String TOKEN_PREFERENCE = "CONDOMINIO.TOKEN";
 
     public static SupportPreferences getInstance(Context context){
         if (instance == null){
@@ -27,7 +27,7 @@ public class SupportPreferences extends Application {
     }
 
     private SupportPreferences(Context context){
-        mpPreferences = context.getSharedPreferences(PREFERENCE_ARCHIVE, context.MODE_PRIVATE);
+        mpPreferences = context.getSharedPreferences(ARCHIVE_PREFERENCE, context.MODE_PRIVATE);
     }
 
     public void savePreference(String preference, String value){

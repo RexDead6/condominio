@@ -17,6 +17,7 @@ import com.rex.condominio.retrofit.request.LoginRequest;
 import com.rex.condominio.retrofit.response.LoginResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.utils.SupportPreferences;
+import com.rex.condominio.utils.TokenSupport;
 
 import at.markushi.ui.CircleButton;
 import retrofit2.Call;
@@ -61,9 +62,8 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseClient<LoginResponse>> call, Response<ResponseClient<LoginResponse>> response) {
                     dialogProgress.dismiss();
                     if (response.code() == 200) {
-                        SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.USER_ID_PREFERENCE, response.body().getData().getId() + "");
-                        if (response.body().getData().getStatusUsu() == 1) {
-                            SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.FAM_ID_PREFERENCE, response.body().getData().getIdFam() + "");
+                        SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.body().getData().getToken());
+                        if (!new TokenSupport(LoginActivity.this).getIdFam().equals("00")) {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
