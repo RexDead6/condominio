@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Option"
-        android:icon="@drawable/ic_baseline_family_restroom_24"
+        android:id="@+id/menu_dashboard"
+        android:title="Dashboard"
+        android:icon="@drawable/ic_baseline_dashboard_24"
         android:iconTint="@color/primaryColor"/>
 
     <item
-        android:title="Option"
-        android:icon="@drawable/ic_baseline_family_restroom_24"
+        android:id="@+id/menu_anuncios"
+        android:title="Anuncios"
+        android:icon="@drawable/ic_baseline_campaign_24"
         android:iconTint="@color/primaryColor"/>
 
     <item
-        android:title="Option"
-        android:icon="@drawable/ic_baseline_family_restroom_24"
+        android:id="@+id/menu_servicios"
+        android:title="Servicios"
+        android:icon="@drawable/ic_baseline_request_quote_24"
         android:iconTint="@color/primaryColor"/>
 
     <item
-        android:title="Option"
-        android:icon="@drawable/ic_baseline_family_restroom_24"
+        android:id="@+id/menu_tienda"
+        android:title="Tienda"
+        android:icon="@drawable/ic_baseline_store_24"
         android:iconTint="@color/primaryColor"/>
 
     <item
-        android:title="Option"
-        android:icon="@drawable/ic_baseline_family_restroom_24"
+        android:id="@+id/menu_mi_cuenta"
+        android:title="Mi Cuenta"
+        android:icon="@drawable/ic_baseline_account_circle_24"
         android:iconTint="@color/primaryColor"/>
 </menu>

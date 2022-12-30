@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.transition.MaterialFadeThrough;
 import com.rex.condominio.R;
 
 public class SupportPreferences extends Application {
@@ -44,6 +45,8 @@ public class SupportPreferences extends Application {
     }
 
     public static void loadFrament(Fragment fragment, FragmentTransaction trans, boolean stack){
+        fragment.setEnterTransition(new MaterialFadeThrough());
+        fragment.setExitTransition(new MaterialFadeThrough());
         trans.replace(R.id.fragment_container, fragment);
         if (stack) trans.addToBackStack(null);
         trans.commit();
