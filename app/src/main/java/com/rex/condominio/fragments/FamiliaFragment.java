@@ -1,8 +1,5 @@
 package com.rex.condominio.fragments;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.app.AlertDialog;
 import android.os.Bundle;
 
@@ -14,18 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.rex.condominio.R;
-import com.rex.condominio.activities.LoginActivity;
 import com.rex.condominio.adapters.FamiliaAdapter;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
-import com.rex.condominio.retrofit.response.LoginResponse;
+import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.utils.SupportPreferences;
 
@@ -72,7 +66,7 @@ public class FamiliaFragment extends Fragment {
                     return;
                 }
 
-                ResponseClient<LoginResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
+                ResponseClient<TokenResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
 
                 new AlertDialog.Builder(getContext())
                         .setMessage(errorResponse.getMessage())

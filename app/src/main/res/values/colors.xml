@@ -10,4 +10,6 @@
 
     <color name="primaryColor">#CA0000</color>
     <color name="accentColor">#333333</color>
+
+    <color name="transparent">#A6000000</color>
 </resources>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.activarUser.ContainerFragment"
+    android:background="@color/primaryColor">
+
+    <FrameLayout
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/logo_png"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_title"
+        android:layout_marginBottom="-20dp"
+        app:cardCornerRadius="20dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Active su cuenta"
+                android:textColor="@color/accentColor"
+                android:textSize="24dp"
+                android:textAlignment="center"/>
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/btn_qr"
+                android:layout_width="64dip"
+                android:layout_height="64dip"
+                android:src="@drawable/ic_baseline_qr_code_scanner_24"
+                app:cb_color="@color/primaryColor"
+                android:tint="@color/white"
+                android:transitionName="qr_transition"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

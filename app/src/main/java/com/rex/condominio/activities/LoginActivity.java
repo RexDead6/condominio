@@ -11,10 +11,11 @@ import android.widget.FrameLayout;
 
 import com.google.gson.Gson;
 import com.rex.condominio.R;
+import com.rex.condominio.activities.register.RegisterActivity;
 import com.rex.condominio.dialogs.DialogProgress;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.request.LoginRequest;
-import com.rex.condominio.retrofit.response.LoginResponse;
+import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.utils.SupportPreferences;
 import com.rex.condominio.utils.TokenSupport;
@@ -56,10 +57,10 @@ public class LoginActivity extends AppCompatActivity {
                     et_clave.getText().toString()
             );
 
-            Call<ResponseClient<LoginResponse>> clientCall = RetrofitClient.getInstance().getRequestInterface().login(loginRequest);
-            clientCall.enqueue(new Callback<ResponseClient<LoginResponse>>() {
+            Call<ResponseClient<TokenResponse>> clientCall = RetrofitClient.getInstance().getRequestInterface().login(loginRequest);
+            clientCall.enqueue(new Callback<ResponseClient<TokenResponse>>() {
                 @Override
-                public void onResponse(Call<ResponseClient<LoginResponse>> call, Response<ResponseClient<LoginResponse>> response) {
+                public void onResponse(Call<ResponseClient<TokenResponse>> call, Response<ResponseClient<TokenResponse>> response) {
                     dialogProgress.dismiss();
                     if (response.code() == 200) {
                         SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.body().getData().getToken());
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
 
-                    ResponseClient<LoginResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
+                    ResponseClient<TokenResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
 
                     new AlertDialog.Builder(LoginActivity.this)
                             .setMessage(errorResponse.getMessage())
@@ -80,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<ResponseClient<LoginResponse>> call, Throwable t) {
+                public void onFailure(Call<ResponseClient<TokenResponse>> call, Throwable t) {
                     Log.e("login", t.toString());
                     dialogProgress.dismiss();
                 }

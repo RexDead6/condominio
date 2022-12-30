@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        String idUser = SupportPreferences.getInstance(this).getPreference(SupportPreferences.USER_ID_PREFERENCE);
+        String idUser = SupportPreferences.getInstance(this).getPreference(SupportPreferences.TOKEN_PREFERENCE);
         if (idUser.equals("")){
             new Handler().postDelayed(() -> {
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);

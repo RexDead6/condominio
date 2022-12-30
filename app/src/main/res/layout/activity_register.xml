@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.RegisterActivity">
+    tools:context=".activities.register.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -124,7 +124,6 @@
         </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_clave"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -134,6 +133,7 @@
             app:passwordToggleTint="@color/primaryColor">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_clave"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword" />
@@ -156,6 +156,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_registrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

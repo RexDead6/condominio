@@ -14,8 +14,8 @@ public class TokenSupport {
         this.idRol = tokenData[2];
     }
 
-    public String getIdUsu() {
-        return idUsu;
+    public int getIdUsu() {
+        return Integer.parseInt(idUsu);
     }
 
     public String getIdFam() {
