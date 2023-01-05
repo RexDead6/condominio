@@ -1,66 +1,99 @@
 package com.rex.condominio.fragments;
 
+import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.transition.MaterialElevationScale;
+import com.google.gson.Gson;
 import com.rex.condominio.R;
+import com.rex.condominio.activities.CrearAnuncioActivity;
+import com.rex.condominio.activities.LoginActivity;
+import com.rex.condominio.activities.MainActivity;
+import com.rex.condominio.adapters.AnunciosAdapter;
+import com.rex.condominio.retrofit.RetrofitClient;
+import com.rex.condominio.retrofit.response.AnuncioResponse;
+import com.rex.condominio.retrofit.response.ResponseClient;
+import com.rex.condominio.retrofit.response.TokenResponse;
+import com.rex.condominio.utils.SupportPreferences;
+import com.rex.condominio.utils.TokenSupport;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AnunciosFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class AnunciosFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recycler_anuncios;
+    private FloatingActionButton floatingButtom;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_anuncios, container, false);
+        /*setExitTransition(new MaterialElevationScale(true));
+        setReenterTransition(new MaterialElevationScale(true));*/
 
-    public AnunciosFragment() {
-        // Required empty public constructor
+        recycler_anuncios = v.findViewById(R.id.recycler_anuncios);
+        floatingButtom = v.findViewById(R.id.floatingButtom);
+
+        floatingButtom.setOnClickListener(V -> {
+            Intent intent = new Intent(getActivity(), CrearAnuncioActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    getActivity(),
+                    floatingButtom,
+                    "crearAnuncio"
+            );
+            startActivity(intent, options.toBundle());
+        });
+
+        callRequest();
+        return v;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AnunciosFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AnunciosFragment newInstance(String param1, String param2) {
-        AnunciosFragment fragment = new AnunciosFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    private void callRequest(){
+        Call<ResponseClient<ArrayList<AnuncioResponse>>> call = RetrofitClient.getInstance().getRequestInterface().getAnuncios(
+                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
+        );
+        call.enqueue(new Callback<ResponseClient<ArrayList<AnuncioResponse>>>() {
+            @Override
+            public void onResponse(Call<ResponseClient<ArrayList<AnuncioResponse>>> call, Response<ResponseClient<ArrayList<AnuncioResponse>>> response) {
+                if (response.code() == 200) {
+                    recycler_anuncios.setAdapter(new AnunciosAdapter(response.body().getData(), getContext()));
+                    recycler_anuncios.setLayoutManager(new LinearLayoutManager(getContext()));
+                    return;
+                }
+
+                ResponseClient<TokenResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
+
+                new AlertDialog.Builder(getContext())
+                        .setMessage(errorResponse.getMessage())
+                        .setPositiveButton("Aceptar", (d, v) -> d.dismiss())
+                        .create().show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseClient<ArrayList<AnuncioResponse>>> call, Throwable t) {
+                Log.e("getAnuncios", t.toString());
+            }
+        });
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_anuncios, container, false);
+    public void onResume() {
+        super.onResume();
+        callRequest();
     }
 }

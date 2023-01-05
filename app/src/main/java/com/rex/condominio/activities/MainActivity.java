@@ -2,20 +2,17 @@ package com.rex.condominio.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
+import android.view.Window;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
 import com.rex.condominio.R;
 import com.rex.condominio.fragments.AnunciosFragment;
 import com.rex.condominio.fragments.DashboardFragment;
-import com.rex.condominio.fragments.FamiliaFragment;
 import com.rex.condominio.fragments.MiCuentaFragment;
 import com.rex.condominio.fragments.ServiciosFragment;
 import com.rex.condominio.fragments.TiendaFragment;
@@ -27,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getWindow().requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+        setExitSharedElementCallback(new MaterialContainerTransformSharedElementCallback());
+        getWindow().setSharedElementsUseOverlay(false);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
