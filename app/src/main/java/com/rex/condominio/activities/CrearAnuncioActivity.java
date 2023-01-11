@@ -1,6 +1,5 @@
 package com.rex.condominio.activities;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -17,7 +16,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -33,19 +31,17 @@ import com.google.android.material.transition.platform.MaterialContainerTransfor
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback;
 import com.google.gson.Gson;
 import com.rex.condominio.R;
-import com.rex.condominio.dialogs.DialogProgress;
+import com.rex.condominio.dialogs.ProgressDialog;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import at.markushi.ui.CircleButton;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -60,7 +56,7 @@ public class CrearAnuncioActivity extends AppCompatActivity {
     private ConstraintLayout layout_preview;
     private ImageView img_preview;
     private Toolbar toolbar;
-    private DialogProgress progress;
+    private ProgressDialog progress;
 
     private File fileImg;
     private final int SELECT_IMG = 200;
@@ -92,7 +88,7 @@ public class CrearAnuncioActivity extends AppCompatActivity {
         img_preview = findViewById(R.id.img_preview);
         toolbar = findViewById(R.id.toolbar);
 
-        progress = new DialogProgress(this);
+        progress = new ProgressDialog(this);
 
         setSupportActionBar(toolbar);
     }

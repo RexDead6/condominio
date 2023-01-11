@@ -14,7 +14,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.rex.condominio.R;
-import com.rex.condominio.dialogs.DialogProgress;
+import com.rex.condominio.dialogs.ProgressDialog;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.request.UsuarioRequest;
 import com.rex.condominio.retrofit.response.TokenResponse;
@@ -74,14 +74,14 @@ public class RegisterActivity extends AppCompatActivity {
                 et_clave.getText().toString()
         );
 
-        DialogProgress dialogProgress = new DialogProgress(this);
-        dialogProgress.show();
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.show();
 
         Call<ResponseClient<TokenResponse>> call = RetrofitClient.getInstance().getRequestInterface().insertUsuario(usuarioRequest);
         call.enqueue(new Callback<ResponseClient<TokenResponse>>() {
             @Override
             public void onResponse(Call<ResponseClient<TokenResponse>> call, Response<ResponseClient<TokenResponse>> response) {
-                dialogProgress.dismiss();
+                progressDialog.dismiss();
                 if (response.code() == 201){
                     Intent intent = new Intent(RegisterActivity.this, ActivarUserActivity.class);
                     SupportPreferences.getInstance(RegisterActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.body().getData().getToken());
@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseClient<TokenResponse>> call, Throwable t) {
                 Log.e("UserInsert", t.toString());
-                dialogProgress.dismiss();
+                progressDialog.dismiss();
             }
         });
     }

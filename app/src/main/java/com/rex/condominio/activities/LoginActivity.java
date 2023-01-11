@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import com.google.gson.Gson;
 import com.rex.condominio.R;
 import com.rex.condominio.activities.register.RegisterActivity;
-import com.rex.condominio.dialogs.DialogProgress;
+import com.rex.condominio.dialogs.ProgressDialog;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.request.LoginRequest;
 import com.rex.condominio.retrofit.response.TokenResponse;
@@ -49,8 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_entrar.setOnClickListener(v -> {
             if (!validate_inputs()) return;
 
-            DialogProgress dialogProgress = new DialogProgress(this);
-            dialogProgress.show();
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.show();
 
             LoginRequest loginRequest = new LoginRequest(
                     et_cedula.getText().toString(),
@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             clientCall.enqueue(new Callback<ResponseClient<TokenResponse>>() {
                 @Override
                 public void onResponse(Call<ResponseClient<TokenResponse>> call, Response<ResponseClient<TokenResponse>> response) {
-                    dialogProgress.dismiss();
+                    progressDialog.dismiss();
                     if (response.code() == 200) {
                         SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.body().getData().getToken());
                         if (!new TokenSupport(LoginActivity.this).getIdFam().equals("00")) {
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ResponseClient<TokenResponse>> call, Throwable t) {
                     Log.e("login", t.toString());
-                    dialogProgress.dismiss();
+                    progressDialog.dismiss();
                 }
             });
         });

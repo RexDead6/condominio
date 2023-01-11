@@ -1,10 +1,13 @@
 package com.rex.condominio.retrofit;
 
 import com.rex.condominio.retrofit.request.LoginRequest;
+import com.rex.condominio.retrofit.request.PagoMovilRequest;
 import com.rex.condominio.retrofit.request.RelacionFamiliarRequest;
 import com.rex.condominio.retrofit.request.UsuarioRequest;
 import com.rex.condominio.retrofit.response.AnuncioResponse;
+import com.rex.condominio.retrofit.response.BancosResponse;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
+import com.rex.condominio.retrofit.response.PagoMovilResponse;
 import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 
@@ -54,4 +57,16 @@ public interface RequestInterface {
 
     @GET("anuncios.php")
     Call<ResponseClient<ArrayList<AnuncioResponse>>> getAnuncios(@Query("token") String token);
+
+    @GET("bancos.php")
+    Call<ResponseClient<ArrayList<BancosResponse>>> getBancos();
+
+    @GET("pagoMovil.php")
+    Call<ResponseClient<ArrayList<PagoMovilResponse>>> getPagoMovil(@Query("token") String token);
+
+    @POST("PagoMovil.php")
+    Call<ResponseClient<Object>> insetPagoMovil(
+            @Query("token") String token,
+            @Body PagoMovilRequest pagoMovilRequest
+    );
 }
