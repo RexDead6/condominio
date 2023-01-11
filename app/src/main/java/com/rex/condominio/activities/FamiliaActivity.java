@@ -1,16 +1,12 @@
-package com.rex.condominio.fragments;
+package com.rex.condominio.activities;
 
-import android.app.AlertDialog;
-import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,8 +15,8 @@ import com.rex.condominio.R;
 import com.rex.condominio.adapters.FamiliaAdapter;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
-import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
+import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
 import net.glxn.qrgen.android.QRCode;
@@ -29,27 +25,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
- */
-public class FamiliaFragment extends Fragment {
+public class FamiliaActivity extends AppCompatActivity {
 
     private TextView tv_desc, tv_direccion;
     private ImageView image_qr;
     private RecyclerView recycler_familia;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_familia, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_familt);
 
-        tv_desc = v.findViewById(R.id.tv_desc);
-        tv_direccion = v.findViewById(R.id.tv_direccion);
-        image_qr = v.findViewById(R.id.image_qr);
-        recycler_familia = v.findViewById(R.id.recycler_familia);
+        tv_desc = findViewById(R.id.tv_desc);
+        tv_direccion = findViewById(R.id.tv_direccion);
+        image_qr = findViewById(R.id.image_qr);
+        recycler_familia = findViewById(R.id.recycler_familia);
 
         Call<ResponseClient<FamiliaResponse>> call = RetrofitClient.getInstance().getRequestInterface().getFamilia(
-                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
+                SupportPreferences.getInstance(this).getPreference(SupportPreferences.TOKEN_PREFERENCE)
         );
         call.enqueue(new Callback<ResponseClient<FamiliaResponse>>() {
             @Override
@@ -61,14 +54,14 @@ public class FamiliaFragment extends Fragment {
                     tv_direccion.setText(response.body().getData().getDireccion());
                     tv_desc.setText(response.body().getData().getDescFam());
 
-                    recycler_familia.setAdapter(new FamiliaAdapter(getContext(), response.body().getData().getUsers()));
-                    recycler_familia.setLayoutManager(new LinearLayoutManager(getContext()));
+                    recycler_familia.setAdapter(new FamiliaAdapter(FamiliaActivity.this, response.body().getData().getUsers()));
+                    recycler_familia.setLayoutManager(new LinearLayoutManager(FamiliaActivity.this));
                     return;
                 }
 
                 ResponseClient<TokenResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
 
-                new AlertDialog.Builder(getContext())
+                new AlertDialog.Builder(FamiliaActivity.this)
                         .setMessage(errorResponse.getMessage())
                         .setPositiveButton("Aceptar", (d, v) -> d.dismiss())
                         .create().show();
@@ -79,6 +72,5 @@ public class FamiliaFragment extends Fragment {
                 Log.e("Familia", t.toString());
             }
         });
-        return v;
     }
 }
