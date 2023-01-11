@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rex.condominio.R;
+import com.rex.condominio.activities.FamiliaActivity;
 import com.rex.condominio.activities.PagoMovilActivity;
 
 
 public class MiCuentaFragment extends Fragment {
 
-    private FloatingActionButton btn_pago_movil;
+    private FloatingActionButton btn_pago_movil, btn_familia;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,6 +26,12 @@ public class MiCuentaFragment extends Fragment {
         btn_pago_movil = v.findViewById(R.id.btn_pago_movil);
         btn_pago_movil.setOnClickListener(V -> {
             Intent intent = new Intent(getActivity(), PagoMovilActivity.class);
+            startActivity(intent);
+        });
+
+        btn_familia = v.findViewById(R.id.btn_familia);
+        btn_familia.setOnClickListener(V -> {
+            Intent intent = new Intent(getActivity(), FamiliaActivity.class);
             startActivity(intent);
         });
 

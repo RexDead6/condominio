@@ -21,6 +21,9 @@
         android:theme="@style/Theme.Condominio"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.FamiliaActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.PagoMovilActivity"
             android:exported="false" />
         <activity
