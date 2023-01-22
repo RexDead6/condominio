@@ -21,6 +21,7 @@ public class SupportPreferences extends Application {
 
     private final String ARCHIVE_PREFERENCE = "CONDOMINIO.PREFERENCES";
     public static String TOKEN_PREFERENCE = "CONDOMINIO.TOKEN";
+    public static String NOTIFICACION_PREFERENCE = "CONDOMINIO.NOTIFICACION";
 
     public static SupportPreferences getInstance(Context context) {
         if (instance == null) {
@@ -40,6 +41,15 @@ public class SupportPreferences extends Application {
 
     public String getPreference(String preference) {
         return mpPreferences.getString(preference, "");
+    }
+
+    public void savePreferenceInt(String preference, int value) {
+        SharedPreferences.Editor editor = mpPreferences.edit();
+        editor.putInt(preference, value).apply();
+    }
+
+    public int getPreferenceInt(String preference) {
+        return mpPreferences.getInt(preference, 0);
     }
 
     public static void loadFrament(Fragment fragment, FragmentTransaction trans) {

@@ -8,6 +8,7 @@ import com.rex.condominio.retrofit.response.AnuncioResponse;
 import com.rex.condominio.retrofit.response.BancosResponse;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
 import com.rex.condominio.retrofit.response.PagoMovilResponse;
+import com.rex.condominio.retrofit.response.PushMessageResponse;
 import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 
@@ -69,4 +70,7 @@ public interface RequestInterface {
             @Query("token") String token,
             @Body PagoMovilRequest pagoMovilRequest
     );
+
+    @GET("notificaciones.php")
+    Call<ResponseClient<PushMessageResponse>> getNotificaciones(@Query("token") String token);
 }

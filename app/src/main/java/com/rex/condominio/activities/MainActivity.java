@@ -3,7 +3,9 @@ package com.rex.condominio.activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.Window;
 
@@ -16,9 +18,14 @@ import com.rex.condominio.fragments.DashboardFragment;
 import com.rex.condominio.fragments.MiCuentaFragment;
 import com.rex.condominio.fragments.ServiciosFragment;
 import com.rex.condominio.fragments.TiendaFragment;
+import com.rex.condominio.services.NotificacionesService;
 import com.rex.condominio.utils.SupportPreferences;
 
 public class MainActivity extends AppCompatActivity {
+
+    public MainActivity(){
+        Log.e("class", "init");
+    }
 
     private BottomNavigationView bottom_bar;
 
@@ -31,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottom_bar = findViewById(R.id.bottom_bar);
+
+        Intent intentService = new Intent(this, NotificacionesService.class);
+        startService(intentService);
 
         bottom_bar.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

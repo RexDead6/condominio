@@ -20,6 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Condominio"
         android:usesCleartextTraffic="true">
+        <service
+            android:name=".services.NotificacionesService"
+            android:enabled="true"
+            android:exported="false"></service>
+
         <activity
             android:name=".activities.FamiliaActivity"
             android:exported="false" />
