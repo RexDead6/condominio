@@ -5,14 +5,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.rex.condominio.R;
 import com.rex.condominio.adapters.FamiliaAdapter;
+import com.rex.condominio.dialogs.ProgressDialog;
+import com.rex.condominio.fragments.familia.FamiliaFragment;
+import com.rex.condominio.fragments.familia.ListaFamiliaFragment;
+import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
@@ -21,55 +28,47 @@ import com.rex.condominio.utils.SupportPreferences;
 
 import net.glxn.qrgen.android.QRCode;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FamiliaActivity extends AppCompatActivity {
 
-    private TextView tv_desc, tv_direccion;
-    private ImageView image_qr;
-    private RecyclerView recycler_familia;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_familt);
+        SupportPreferences.loadFrament(new FamiliaFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.container_familia);
+    }
 
-        tv_desc = findViewById(R.id.tv_desc);
-        tv_direccion = findViewById(R.id.tv_direccion);
-        image_qr = findViewById(R.id.image_qr);
-        recycler_familia = findViewById(R.id.recycler_familia);
+    public void openFamilias(View view){
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.show();
 
-        Call<ResponseClient<FamiliaResponse>> call = RetrofitClient.getInstance().getRequestInterface().getFamilia(
+        Call<ResponseClient<ArrayList<FamiliaResponse>>> getAll = RetrofitClient.getInstance().getRequestInterface().getAllFamilia(
                 SupportPreferences.getInstance(this).getPreference(SupportPreferences.TOKEN_PREFERENCE)
         );
-        call.enqueue(new Callback<ResponseClient<FamiliaResponse>>() {
+        getAll.enqueue(new ResponseCallback<ResponseClient<ArrayList<FamiliaResponse>>>() {
             @Override
-            public void onResponse(Call<ResponseClient<FamiliaResponse>> call, Response<ResponseClient<FamiliaResponse>> response) {
-                if (response.code() == 200) {
-                    QRCode qrCode = QRCode.from(response.body().getData().getHashFam())
-                            .withSize(160, 160);
-                    image_qr.setImageBitmap(qrCode.bitmap());
-                    tv_direccion.setText(response.body().getData().getDireccion());
-                    tv_desc.setText(response.body().getData().getDescFam());
-
-                    recycler_familia.setAdapter(new FamiliaAdapter(FamiliaActivity.this, response.body().getData().getUsers()));
-                    recycler_familia.setLayoutManager(new LinearLayoutManager(FamiliaActivity.this));
-                    return;
-                }
-
-                ResponseClient<TokenResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
-
-                new AlertDialog.Builder(FamiliaActivity.this)
-                        .setMessage(errorResponse.getMessage())
-                        .setPositiveButton("Aceptar", (d, v) -> d.dismiss())
-                        .create().show();
+            public Context returnContext() {
+                return FamiliaActivity.this;
             }
 
             @Override
-            public void onFailure(Call<ResponseClient<FamiliaResponse>> call, Throwable t) {
-                Log.e("Familia", t.toString());
+            public void onFinish() {
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void doCallBackResponse(ResponseClient<ArrayList<FamiliaResponse>> response) {
+                new SupportPreferences.ObjectPreference<FamiliaResponse>().saveObject(
+                        FamiliaActivity.this,
+                        response.getData(),
+                        SupportPreferences.FAMILIA_LIST_OBJECT
+                );
+                SupportPreferences.loadFrament(new ListaFamiliaFragment(), getSupportFragmentManager().beginTransaction(), true, R.id.container_familia);
             }
         });
     }

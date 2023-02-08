@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.github.markushi:circlebutton:1.1'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'org.sqldroid:sqldroid:1.0.3'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
@@ -50,4 +50,5 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
     implementation 'com.github.kenglxn.QRGen:android:2.6.0'
+    implementation "com.airbnb.android:lottie:5.2.0"
 }

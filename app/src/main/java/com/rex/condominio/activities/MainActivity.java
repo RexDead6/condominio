@@ -47,29 +47,29 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.menu_dashboard: {
-                        SupportPreferences.loadFrament(new DashboardFragment(), getSupportFragmentManager().beginTransaction(), false);
+                        SupportPreferences.loadFrament(new DashboardFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
                         return true;
                     }
                     case R.id.menu_anuncios: {
-                        SupportPreferences.loadFrament(new AnunciosFragment(), getSupportFragmentManager().beginTransaction(), false);
+                        SupportPreferences.loadFrament(new AnunciosFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
                         return true;
                     }
                     case R.id.menu_servicios: {
-                        SupportPreferences.loadFrament(new ServiciosFragment(), getSupportFragmentManager().beginTransaction(), false);
+                        SupportPreferences.loadFrament(new ServiciosFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
                         return true;
                     }
                     case R.id.menu_tienda: {
-                        SupportPreferences.loadFrament(new TiendaFragment(), getSupportFragmentManager().beginTransaction(), false);
+                        SupportPreferences.loadFrament(new TiendaFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
                         return true;
                     }
                     case R.id.menu_mi_cuenta: {
-                        SupportPreferences.loadFrament(new MiCuentaFragment(), getSupportFragmentManager().beginTransaction(), false);
+                        SupportPreferences.loadFrament(new MiCuentaFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
                         return true;
                     }
                     default:return false;
                 }
             }
         });
-        SupportPreferences.loadFrament(new DashboardFragment(), getSupportFragmentManager().beginTransaction(), false);
+        SupportPreferences.loadFrament(new DashboardFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
     }
 }

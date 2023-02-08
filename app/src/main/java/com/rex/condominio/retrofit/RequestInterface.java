@@ -1,5 +1,6 @@
 package com.rex.condominio.retrofit;
 
+import com.rex.condominio.retrofit.request.FamiliaRequest;
 import com.rex.condominio.retrofit.request.LoginRequest;
 import com.rex.condominio.retrofit.request.PagoMovilRequest;
 import com.rex.condominio.retrofit.request.RelacionFamiliarRequest;
@@ -11,6 +12,7 @@ import com.rex.condominio.retrofit.response.PagoMovilResponse;
 import com.rex.condominio.retrofit.response.PushMessageResponse;
 import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
+import com.rex.condominio.retrofit.response.UsuarioResponse;
 
 import java.util.ArrayList;
 
@@ -32,6 +34,15 @@ public interface RequestInterface {
     @POST("usuario.php")
     Call<ResponseClient<TokenResponse>> insertUsuario(@Body UsuarioRequest usuarioRequest);
 
+    @GET("usuario_inactivo.php")
+    Call<ResponseClient<ArrayList<UsuarioResponse>>> getInactivos();
+
+    @POST("familia.php")
+    Call<ResponseClient<Object>> insertFamilia(
+            @Query("token") String token,
+            @Body FamiliaRequest familiaRequest
+    );
+
     @POST("relacionFamilia.php")
     Call<ResponseClient<TokenResponse>> relacionFamiliar(
             @Query("token") String token,
@@ -40,6 +51,9 @@ public interface RequestInterface {
 
     @GET("familia.php")
     Call<ResponseClient<FamiliaResponse>> getFamilia(@Query("token") String token);
+
+    @GET("familias.php")
+    Call<ResponseClient<ArrayList<FamiliaResponse>>> getAllFamilia(@Query("token") String token);
 
     @Multipart
     @POST("anuncios.php")
