@@ -31,8 +31,14 @@ public interface RequestInterface {
     @POST("login.php")
     Call<ResponseClient<TokenResponse>> login(@Body LoginRequest loginRequest);
 
+    @POST("logout.php")
+    Call<ResponseClient<Object>> logout(@Query("token") String token);
+
     @POST("usuario.php")
     Call<ResponseClient<TokenResponse>> insertUsuario(@Body UsuarioRequest usuarioRequest);
+
+    @GET("usuario.php")
+    Call<ResponseClient<UsuarioResponse>> getUsuario(@Query("id") String id);
 
     @GET("usuario_inactivo.php")
     Call<ResponseClient<ArrayList<UsuarioResponse>>> getInactivos();

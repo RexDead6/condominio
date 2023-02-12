@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.google.gson.Gson;
 import com.rex.condominio.R;
+import com.rex.condominio.activities.register.ActivarUserActivity;
 import com.rex.condominio.activities.register.RegisterActivity;
 import com.rex.condominio.dialogs.ProgressDialog;
 import com.rex.condominio.retrofit.RetrofitClient;
@@ -64,11 +65,13 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     if (response.code() == 200) {
                         SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.body().getData().getToken());
-                        if (!new TokenSupport(LoginActivity.this).getIdFam().equals("00")) {
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                        TokenSupport token = new TokenSupport(LoginActivity.this);
+                        Intent intent = new Intent(LoginActivity.this, ActivarUserActivity.class);
+                        if (!token.getIdFam().equals("00")) {
+                            intent = new Intent(LoginActivity.this, MainActivity.class);
                         }
+                        startActivity(intent);
+                        finish();
                         return;
                     }
 

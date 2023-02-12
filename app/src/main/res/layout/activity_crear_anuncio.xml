@@ -15,7 +15,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:title="Crear Anuncio"
-        app:titleTextColor="@color/white"/>
+        app:titleTextColor="@color/white"
+        android:theme="@style/ToolbarTheme"/>
 
     <FrameLayout
         android:id="@+id/header_title"

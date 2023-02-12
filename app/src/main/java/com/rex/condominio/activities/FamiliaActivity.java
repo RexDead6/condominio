@@ -4,11 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,10 +39,15 @@ import retrofit2.Response;
 
 public class FamiliaActivity extends AppCompatActivity {
 
+    private FloatingActionButton btn_familias;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_familt);
+
+        btn_familias = findViewById(R.id.btn_familias);
+
         SupportPreferences.loadFrament(new FamiliaFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.container_familia);
     }
 
@@ -69,7 +77,32 @@ public class FamiliaActivity extends AppCompatActivity {
                         SupportPreferences.FAMILIA_LIST_OBJECT
                 );
                 SupportPreferences.loadFrament(new ListaFamiliaFragment(), getSupportFragmentManager().beginTransaction(), true, R.id.container_familia);
+                btn_familias.animate()
+                        .translationX(500)
+                        .setDuration(650)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                btn_familias.setVisibility(View.GONE);
+                            }
+                        });
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        btn_familias.animate()
+                .translationX(-5)
+                .setDuration(650)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
+                        btn_familias.setVisibility(View.VISIBLE);
+                    }
+                });
+        super.onBackPressed();
     }
 }

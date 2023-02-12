@@ -1,8 +1,11 @@
 package com.rex.condominio.fragments.familia;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -61,7 +65,13 @@ public class FamiliaFragment extends Fragment {
         btn_qr = v.findViewById(R.id.btn_qr);
 
         btn_qr.setOnClickListener(V -> {
-
+            Dialog dialog = new Dialog(getContext());
+            dialog.setContentView(R.layout.modal_qr_familia);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ((ImageView) dialog.findViewById(R.id.imageQr)).setImageBitmap(QR);
+            dialog.findViewById(R.id.btn_cerrar).setOnClickListener(V1 -> dialog.dismiss());
+            dialog.show();
         });
 
         Call<ResponseClient<FamiliaResponse>> call = RetrofitClient.getInstance().getRequestInterface().getFamilia(

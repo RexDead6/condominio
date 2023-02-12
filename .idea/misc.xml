@@ -17,7 +17,7 @@
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/activity_activate.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/activity_camera.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/activity_crear_anuncio.xml" value="0.18" />
-        <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/activity_familt.xml" value="0.18" />
+        <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/activity_familt.xml" value="0.17" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/activity_main.xml" value="0.17" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/activity_main_drawer.xml" value="0.2" />
@@ -28,9 +28,9 @@
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/fragment_container.xml" value="0.2" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/fragment_crear_anuncio.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/fragment_dashboard.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/fragment_familia.xml" value="0.2" />
+        <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/fragment_familia.xml" value="0.15" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/fragment_lista_familia.xml" value="0.18" />
-        <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/fragment_mi_cuenta.xml" value="0.22" />
+        <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/fragment_mi_cuenta.xml" value="0.2" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/fragment_qr_scanner.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/item_anuncio.xml" value="0.18" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/item_banco.xml" value="0.2" />
@@ -40,6 +40,7 @@
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/modal_bancos.xml" value="0.14" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/modal_crear_familia.xml" value="0.2" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/modal_espera.xml" value="0.2" />
+        <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/modal_qr_familia.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/modal_registrar_pago_movil.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/layout/modal_usuarios_inactivos.xml" value="0.18" />
         <entry key="..\:/Users/Alba/AndroidStudioProjects/Condominio/app/src/main/res/menu/bottom_menu.xml" value="0.20416666666666666" />

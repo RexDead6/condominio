@@ -8,10 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#707070</color>
-    <color name="gray_chill">#B5B5B5</color>
+    <color name="gray_chill">#b1a7a6</color>
+    <color name="gray_chill1">#d3d3d3</color>
+    <color name="gray_chill2">#f5f3f4</color>
 
-    <color name="primaryColor">#CA0000</color>
-    <color name="accentColor">#333333</color>
+    <color name="primaryColor">#ba181b</color>
+    <color name="accentColor">#0b090a</color>
 
     <color name="transparent">#A6000000</color>
 </resources>

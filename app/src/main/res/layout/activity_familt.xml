@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:onClick="openFamilias"
-        android:src="@drawable/ic_baseline_add_24"
+        android:src="@drawable/ic_baseline_family_restroom_24"
         android:transitionName="crearAnuncio"
         app:backgroundTint="@color/primaryColor"
         app:layout_constraintBottom_toBottomOf="parent"

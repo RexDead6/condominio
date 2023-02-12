@@ -8,7 +8,7 @@ public class TokenSupport {
     private String idRol;
 
     public TokenSupport(Context context){
-        String[] tokenData = SupportPreferences.getInstance(context).getPreference(SupportPreferences.TOKEN_PREFERENCE).split("|");
+        String[] tokenData = SupportPreferences.getInstance(context).getPreference(SupportPreferences.TOKEN_PREFERENCE).split("\\|");
         this.idUsu = tokenData[0];
         this.idFam = tokenData[1];
         this.idRol = tokenData[2];

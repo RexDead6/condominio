@@ -9,7 +9,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.rex.condominio.R;
+import com.rex.condominio.activities.register.ActivarUserActivity;
 import com.rex.condominio.utils.SupportPreferences;
+import com.rex.condominio.utils.TokenSupport;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -30,6 +32,8 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             new Handler().postDelayed(() -> {
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                if (new TokenSupport(SplashActivity.this).getIdFam().equals("00"))
+                    intent = new Intent(SplashActivity.this, ActivarUserActivity.class);
                 startActivity(intent);
                 finish();
             }, 2000);

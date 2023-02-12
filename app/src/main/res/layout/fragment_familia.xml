@@ -31,12 +31,15 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_qr"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:text="QR"
             android:textAllCaps="false"
-            android:textColor="@color/primaryColor" />
+            android:textColor="@color/primaryColor"
+            app:icon="@drawable/ic_baseline_qr_code_scanner_24"
+            app:iconTint="@color/primaryColor"
+            app:iconGravity="end"
+            app:iconSize="40dp"/>
     </LinearLayout>
 
     <FrameLayout
@@ -50,16 +53,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            app:lottie_rawRes="@raw/loading"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"/>
+            app:lottie_rawRes="@raw/loading" />
     </FrameLayout>
 </RelativeLayout>

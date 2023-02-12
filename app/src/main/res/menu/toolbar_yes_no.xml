@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/menu_cancel"
-        android:title="Cancelar"
-        android:icon="@drawable/left_arrow"
-        app:iconTint="@color/white"
-        app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_aceptar"
         android:title="Aceptar"
-        android:icon="@drawable/comprobar"
+        android:icon="@drawable/ic_baseline_save_24"
         app:iconTint="@color/white"
         app:showAsAction="ifRoom"/>
 </menu>

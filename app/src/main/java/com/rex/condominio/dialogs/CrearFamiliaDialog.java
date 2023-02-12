@@ -3,7 +3,10 @@ package com.rex.condominio.dialogs;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -36,6 +39,8 @@ public class CrearFamiliaDialog extends Dialog {
 
     private void onCreate(){
         setContentView(R.layout.modal_crear_familia);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         et_descripcion = findViewById(R.id.et_descripcion);
         et_direccion = findViewById(R.id.et_direccion);

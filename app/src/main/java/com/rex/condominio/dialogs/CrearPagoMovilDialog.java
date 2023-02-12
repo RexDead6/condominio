@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -42,6 +43,7 @@ public class CrearPagoMovilDialog extends Dialog {
     private void createDialog(){
         setContentView(R.layout.modal_registrar_pago_movil);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         et_cedula = findViewById(R.id.et_cedula);
         et_telefono = findViewById(R.id.et_telefono);

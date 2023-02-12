@@ -91,6 +91,11 @@ public class CrearAnuncioActivity extends AppCompatActivity {
         progress = new ProgressDialog(this);
 
         setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     @Override
@@ -103,7 +108,7 @@ public class CrearAnuncioActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_cancel:{
+            case android.R.id.home:{
                 onBackPressed();
                 break;
             }
