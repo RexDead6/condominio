@@ -91,6 +91,9 @@ public interface RequestInterface {
             @Body PagoMovilRequest pagoMovilRequest
     );
 
+    @GET("servicio.php")
+    Call<ResponseClient<>>
+
     @GET("notificaciones.php")
     Call<ResponseClient<PushMessageResponse>> getNotificaciones(@Query("token") String token);
 }
