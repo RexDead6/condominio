@@ -91,6 +91,6 @@ public class SupportPreferences extends Application {
 
     public static String formatCurrency(float currency){
         NumberFormat tf = NumberFormat.getCurrencyInstance();
-        return tf.format(currency);
+        return tf.format(currency).replace("$", "") + " Bs";
     }
 }

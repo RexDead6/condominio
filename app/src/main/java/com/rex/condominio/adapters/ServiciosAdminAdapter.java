@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rex.condominio.R;
+import com.rex.condominio.dialogs.PagoMovilDialog;
 import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
@@ -42,6 +43,11 @@ public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAd
         holder.tv_estado.setText((data.get(position).getStatusSer() == 1) ? "Activo" : "Inactivo");
         holder.tv_tipo.setText((data.get(position).getIsMensualSer() == 1) ? "Mensual" : "Pago unico");
         holder.tv_fecha.setText(data.get(position).getFechaInicioServicio());
+
+        holder.btn_pmv.setOnClickListener(v -> {
+            PagoMovilDialog dialog = new PagoMovilDialog(context, data.get(position).getPagoMovil());
+            dialog.show();
+        });
     }
 
     @Override
@@ -60,6 +66,7 @@ public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAd
             tv_tipo = itemView.findViewById(R.id.tv_tipo);
             tv_estado = itemView.findViewById(R.id.tv_estado);
             tv_fecha = itemView.findViewById(R.id.tv_fecha);
+            btn_pmv = itemView.findViewById(R.id.btn_pmv);
         }
     }
 }

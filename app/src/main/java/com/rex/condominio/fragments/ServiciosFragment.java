@@ -1,6 +1,8 @@
 package com.rex.condominio.fragments;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,7 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rex.condominio.R;
+import com.rex.condominio.activities.CrearAnuncioActivity;
+import com.rex.condominio.activities.ServicioActivity;
 import com.rex.condominio.adapters.ServiciosPorPagarAdapter;
 import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
@@ -28,6 +33,7 @@ public class ServiciosFragment extends Fragment {
 
     private RecyclerView recycler_servicios;
     private LottieAnimationView animationView;
+    private FloatingActionButton floatingButtom;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +41,17 @@ public class ServiciosFragment extends Fragment {
 
         recycler_servicios = v.findViewById(R.id.recycler_servicios);
         animationView = v.findViewById(R.id.animationView);
+        floatingButtom = v.findViewById(R.id.floatingButtom);
+
+        floatingButtom.setOnClickListener(V -> {
+            Intent intent = new Intent(getActivity(), ServicioActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    getActivity(),
+                    floatingButtom,
+                    "servicio"
+            );
+            startActivity(intent, options.toBundle());
+        });
 
         Call<ResponseClient<ArrayList<ServicioResponse>>> call = RetrofitClient.getInstance().getRequestInterface().getServicio(
                 SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
