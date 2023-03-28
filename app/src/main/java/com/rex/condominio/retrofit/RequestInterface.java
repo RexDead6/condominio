@@ -10,6 +10,7 @@ import com.rex.condominio.retrofit.response.BancosResponse;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
 import com.rex.condominio.retrofit.response.PagoMovilResponse;
 import com.rex.condominio.retrofit.response.PushMessageResponse;
+import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.UsuarioResponse;
@@ -92,7 +93,10 @@ public interface RequestInterface {
     );
 
     @GET("servicio.php")
-    Call<ResponseClient<>>
+    Call<ResponseClient<ArrayList<ServicioResponse>>> getServicio(@Query("token") String token);
+
+    @GET("servicioAdmin.php")
+    Call<ResponseClient<ArrayList<ServicioResponse>>> getAdminServicio(@Query("token") String token);
 
     @GET("notificaciones.php")
     Call<ResponseClient<PushMessageResponse>> getNotificaciones(@Query("token") String token);

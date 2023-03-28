@@ -2,6 +2,7 @@ package com.rex.condominio.retrofit;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rex.condominio.activities.LoginActivity;
@@ -31,7 +32,7 @@ public abstract class ResponseCallback<T> implements Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
-
+        Log.e("Error de petición", t.toString());
     }
 
     public abstract Context returnContext();

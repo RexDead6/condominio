@@ -15,14 +15,15 @@ import com.google.gson.reflect.TypeToken;
 import com.rex.condominio.R;
 import com.rex.condominio.fragments.activarUser.QrScannerFragment;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SupportPreferences extends Application {
 
-    public static final String BASE_URL = "http://192.168.1.146/proyectos/apirest/api/";
-    public static final String IMG_URL = "http://192.168.1.146/proyectos/apirest/assets/";
+    public static final String BASE_URL = "http://192.168.1.117/proyectos/api_condominio/api/";
+    public static final String IMG_URL = "http://192.168.1.117/proyectos/api_condominio/assets/";
     private static SupportPreferences instance;
     private SharedPreferences mpPreferences;
 
@@ -86,5 +87,10 @@ public class SupportPreferences extends Application {
         trans.replace(container, fragment);
         if (stack) trans.addToBackStack(null);
         trans.commit();
+    }
+
+    public static String formatCurrency(float currency){
+        NumberFormat tf = NumberFormat.getCurrencyInstance();
+        return tf.format(currency);
     }
 }
