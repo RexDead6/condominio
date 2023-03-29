@@ -40,6 +40,20 @@ public class AdministrarServiciosFragment extends Fragment {
         recycler_servicio = v.findViewById(R.id.recycler_servicio);
         animationView = v.findViewById(R.id.animationView);
 
+        onCallData();
+
+        return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recycler_servicio.setVisibility(View.GONE);
+        animationView.setVisibility(View.VISIBLE);
+        onCallData();
+    }
+
+    private void onCallData(){
         Call<ResponseClient<ArrayList<ServicioResponse>>> call = RetrofitClient.getInstance().getRequestInterface().getAdminServicio(
                 SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
         );
@@ -61,7 +75,5 @@ public class AdministrarServiciosFragment extends Fragment {
                 recycler_servicio.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
-
-        return v;
     }
 }

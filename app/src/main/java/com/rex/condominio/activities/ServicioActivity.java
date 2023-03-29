@@ -43,7 +43,7 @@ public class ServicioActivity extends AppCompatActivity {
 
         btn_open_servicio = findViewById(R.id.btn_open_servicio);
         btn_open_servicio.setOnClickListener(v -> {
-            SupportPreferences.loadFrament(new CrearServicioFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.container_servicios);
+            SupportPreferences.loadFrament(new CrearServicioFragment(), getSupportFragmentManager().beginTransaction(), true, R.id.container_servicios);
             btn_open_servicio.animate()
                     .translationX(500)
                     .setDuration(650)

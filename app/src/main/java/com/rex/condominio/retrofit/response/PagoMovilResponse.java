@@ -1,26 +1,26 @@
 package com.rex.condominio.retrofit.response;
 
 public class PagoMovilResponse {
-    private int idPvm;
+    private int idPmv;
     private BancosResponse Banco;
     private int status;
     private String telPmv;
     private String cedPmv;
 
-    public PagoMovilResponse(int idPvm, BancosResponse banco, int status, String telPmv, String cedPmv) {
-        this.idPvm = idPvm;
+    public PagoMovilResponse(int idPmv, BancosResponse banco, int status, String telPmv, String cedPmv) {
+        this.idPmv = idPmv;
         Banco = banco;
         this.status = status;
         this.telPmv = telPmv;
         this.cedPmv = cedPmv;
     }
 
-    public int getIdPvm() {
-        return idPvm;
+    public int getIdPmv() {
+        return idPmv;
     }
 
-    public void setIdPvm(int idPvm) {
-        this.idPvm = idPvm;
+    public void setIdPmv(int idPmv) {
+        this.idPmv = idPmv;
     }
 
     public BancosResponse getBanco() {

@@ -4,6 +4,7 @@ import com.rex.condominio.retrofit.request.FamiliaRequest;
 import com.rex.condominio.retrofit.request.LoginRequest;
 import com.rex.condominio.retrofit.request.PagoMovilRequest;
 import com.rex.condominio.retrofit.request.RelacionFamiliarRequest;
+import com.rex.condominio.retrofit.request.ServicioRequest;
 import com.rex.condominio.retrofit.request.UsuarioRequest;
 import com.rex.condominio.retrofit.response.AnuncioResponse;
 import com.rex.condominio.retrofit.response.BancosResponse;
@@ -91,6 +92,12 @@ public interface RequestInterface {
     Call<ResponseClient<Object>> insetPagoMovil(
             @Header("Authorization") String token,
             @Body PagoMovilRequest pagoMovilRequest
+    );
+
+    @POST("servicio.php")
+    Call<ResponseClient<Object>> insertServicio(
+            @Header("Authorization") String token,
+            @Body ServicioRequest servicioRequest
     );
 
     @GET("servicio.php")
