@@ -19,10 +19,12 @@ import com.rex.condominio.R;
 import com.rex.condominio.activities.CrearAnuncioActivity;
 import com.rex.condominio.activities.ServicioActivity;
 import com.rex.condominio.adapters.ServiciosPorPagarAdapter;
+import com.rex.condominio.fragments.servicios.PagarServicioFragment;
 import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.ServicioResponse;
+import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
 import java.util.ArrayList;
@@ -70,7 +72,12 @@ public class ServiciosFragment extends Fragment {
 
             @Override
             public void doCallBackResponse(ResponseClient<ArrayList<ServicioResponse>> response) {
-                recycler_servicios.setAdapter(new ServiciosPorPagarAdapter(response.getData()));
+                recycler_servicios.setAdapter(new ServiciosPorPagarAdapter(response.getData(), new OnClickResponse<ServicioResponse>() {
+                    @Override
+                    public void onClick(ServicioResponse object) {
+                        SupportPreferences.loadFrament(new PagarServicioFragment(object), getActivity().getSupportFragmentManager().beginTransaction(), true, R.id.fragment_container);
+                    }
+                }));
                 recycler_servicios.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });

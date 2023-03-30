@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.rex.condominio.R;
+import com.rex.condominio.fragments.servicios.PagarServicioFragment;
 import com.rex.condominio.retrofit.response.ServicioResponse;
+import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
 import java.util.ArrayList;
@@ -18,9 +20,11 @@ import java.util.ArrayList;
 public class ServiciosPorPagarAdapter extends RecyclerView.Adapter<ServiciosPorPagarAdapter.ViewHolder> {
 
     private ArrayList<ServicioResponse> data;
+    private OnClickResponse<ServicioResponse> onClickResponse;
 
-    public ServiciosPorPagarAdapter(ArrayList<ServicioResponse> data) {
+    public ServiciosPorPagarAdapter(ArrayList<ServicioResponse> data, OnClickResponse<ServicioResponse> onClickResponse) {
         this.data = data;
+        this.onClickResponse = onClickResponse;
     }
 
     @NonNull
@@ -34,11 +38,9 @@ public class ServiciosPorPagarAdapter extends RecyclerView.Adapter<ServiciosPorP
     public void onBindViewHolder(@NonNull ServiciosPorPagarAdapter.ViewHolder holder, int position) {
         holder.tv_desc.setText(data.get(position).getDescSer());
         holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer()));
-        if (data.get(position).getIsMensualSer() == 0)
-            holder.tv_meses.setText("Pago unico");
-        else
-            holder.tv_meses.setText(data.get(position).getMesesPorPagar()+"");
+        holder.tv_meses.setText(data.get(position).getIsMensualSer() == 0 ? "Pago unico" : data.get(position).getMesesPorPagar()+"");
         holder.tv_total.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer() * data.get(position).getMesesPorPagar()));
+        holder.btn_pagar.setOnClickListener(V-> onClickResponse.onClick(data.get(position)));
     }
 
     @Override

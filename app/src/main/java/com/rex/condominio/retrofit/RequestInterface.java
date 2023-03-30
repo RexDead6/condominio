@@ -2,6 +2,7 @@ package com.rex.condominio.retrofit;
 
 import com.rex.condominio.retrofit.request.FamiliaRequest;
 import com.rex.condominio.retrofit.request.LoginRequest;
+import com.rex.condominio.retrofit.request.PagarServicioRequest;
 import com.rex.condominio.retrofit.request.PagoMovilRequest;
 import com.rex.condominio.retrofit.request.RelacionFamiliarRequest;
 import com.rex.condominio.retrofit.request.ServicioRequest;
@@ -98,6 +99,12 @@ public interface RequestInterface {
     Call<ResponseClient<Object>> insertServicio(
             @Header("Authorization") String token,
             @Body ServicioRequest servicioRequest
+    );
+
+    @POST("payServices.php")
+    Call<ResponseClient<Object>> insertPagoServicio(
+            @Header("Authorization") String token,
+            @Body PagarServicioRequest pagarServicioRequest
     );
 
     @GET("servicio.php")
