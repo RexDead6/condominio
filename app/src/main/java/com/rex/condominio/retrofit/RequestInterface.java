@@ -9,6 +9,8 @@ import com.rex.condominio.retrofit.request.ServicioRequest;
 import com.rex.condominio.retrofit.request.UsuarioRequest;
 import com.rex.condominio.retrofit.response.AnuncioResponse;
 import com.rex.condominio.retrofit.response.BancosResponse;
+import com.rex.condominio.retrofit.response.FacturaByStatusResponse;
+import com.rex.condominio.retrofit.response.FacturaResponse;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
 import com.rex.condominio.retrofit.response.PagoMovilResponse;
 import com.rex.condominio.retrofit.response.PushMessageResponse;
@@ -26,6 +28,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
@@ -101,10 +104,30 @@ public interface RequestInterface {
             @Body ServicioRequest servicioRequest
     );
 
-    @POST("payServices.php")
+    @POST("factura.php")
     Call<ResponseClient<Object>> insertPagoServicio(
             @Header("Authorization") String token,
             @Body PagarServicioRequest pagarServicioRequest
+    );
+
+    @GET("factura.php")
+    Call<ResponseClient<ArrayList<FacturaResponse>>> getFacturas(
+            @Header("Authorization") String token,
+            @Query("status") String status
+    );
+
+    @PATCH("FacturaAdmin.php")
+    Call<ResponseClient<Object>> updateStatusFactura(
+            @Header("Authorization") String token,
+            @Query("idFac") String idFac,
+            @Query("status") String status
+    );
+
+    @GET("FacturaAdmin.php")
+    Call<ResponseClient<ArrayList<FacturaResponse>>> getFacturaAdmin(
+            @Header("Authorization") String token,
+            @Query("idSer") String idSer,
+            @Query("status") String status
     );
 
     @GET("servicio.php")

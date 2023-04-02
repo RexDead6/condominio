@@ -17,6 +17,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rex.condominio.R;
 import com.rex.condominio.activities.CrearAnuncioActivity;
+import com.rex.condominio.activities.FacturasActivity;
 import com.rex.condominio.activities.ServicioActivity;
 import com.rex.condominio.adapters.ServiciosPorPagarAdapter;
 import com.rex.condominio.fragments.servicios.PagarServicioFragment;
@@ -26,6 +27,7 @@ import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
+import com.rex.condominio.utils.TokenSupport;
 
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ public class ServiciosFragment extends Fragment {
 
     private RecyclerView recycler_servicios;
     private LottieAnimationView animationView;
-    private FloatingActionButton floatingButtom;
+    private FloatingActionButton floatingButtom, btn_open_facturas;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +46,11 @@ public class ServiciosFragment extends Fragment {
         recycler_servicios = v.findViewById(R.id.recycler_servicios);
         animationView = v.findViewById(R.id.animationView);
         floatingButtom = v.findViewById(R.id.floatingButtom);
+        btn_open_facturas = v.findViewById(R.id.btn_open_facturas);
+
+        if (Integer.parseInt(new TokenSupport(getContext()).getIdRol()) > 1){
+            floatingButtom.setVisibility(View.GONE);
+        }
 
         floatingButtom.setOnClickListener(V -> {
             Intent intent = new Intent(getActivity(), ServicioActivity.class);
@@ -51,6 +58,16 @@ public class ServiciosFragment extends Fragment {
                     getActivity(),
                     floatingButtom,
                     "servicio"
+            );
+            startActivity(intent, options.toBundle());
+        });
+
+        btn_open_facturas.setOnClickListener(V -> {
+            Intent intent = new Intent(getActivity(), FacturasActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                    getActivity(),
+                    btn_open_facturas,
+                    "facturas"
             );
             startActivity(intent, options.toBundle());
         });

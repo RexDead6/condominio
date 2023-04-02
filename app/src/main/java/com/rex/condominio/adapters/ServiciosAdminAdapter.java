@@ -8,10 +8,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rex.condominio.R;
 import com.rex.condominio.dialogs.PagoMovilDialog;
+import com.rex.condominio.fragments.servicios.AdministrarServiciosFragment;
+import com.rex.condominio.fragments.servicios.FacturasAdminFragment;
 import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
@@ -19,12 +22,12 @@ import java.util.ArrayList;
 
 public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAdapter.ViewHolder> {
 
-    private Context context;
+    private Fragment fragment;
     private ArrayList<ServicioResponse> data;
     private ArrayList<ServicioResponse> dataFiltered;
 
-    public ServiciosAdminAdapter(Context context, ArrayList<ServicioResponse> data) {
-        this.context = context;
+    public ServiciosAdminAdapter(Fragment fragment, ArrayList<ServicioResponse> data) {
+        this.fragment = fragment;
         this.data = data;
         this.dataFiltered = data;
     }
@@ -44,9 +47,8 @@ public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAd
         holder.tv_tipo.setText((data.get(position).getIsMensualSer() == 1) ? "Mensual" : "Pago unico");
         holder.tv_fecha.setText(data.get(position).getFechaInicioServicio());
 
-        holder.btn_pmv.setOnClickListener(v -> {
-            PagoMovilDialog dialog = new PagoMovilDialog(context, data.get(position).getPagoMovil());
-            dialog.show();
+        holder.btn_administrar.setOnClickListener(v -> {
+            SupportPreferences.loadFrament(new FacturasAdminFragment(data.get(position).getIdSer()), fragment.getActivity().getSupportFragmentManager().beginTransaction(), true, R.id.container_servicios);
         });
     }
 
@@ -58,7 +60,7 @@ public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAd
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tv_desc, tv_monto, tv_tipo, tv_estado, tv_fecha;
-        private Button btn_editar, btn_pmv;
+        private Button btn_editar, btn_administrar;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_desc = itemView.findViewById(R.id.tv_desc);
@@ -66,7 +68,7 @@ public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAd
             tv_tipo = itemView.findViewById(R.id.tv_tipo);
             tv_estado = itemView.findViewById(R.id.tv_estado);
             tv_fecha = itemView.findViewById(R.id.tv_fecha);
-            btn_pmv = itemView.findViewById(R.id.btn_pmv);
+            btn_administrar = itemView.findViewById(R.id.btn_administrar);
         }
     }
 }

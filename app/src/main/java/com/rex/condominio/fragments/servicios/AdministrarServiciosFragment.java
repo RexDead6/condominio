@@ -45,14 +45,6 @@ public class AdministrarServiciosFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        recycler_servicio.setVisibility(View.GONE);
-        animationView.setVisibility(View.VISIBLE);
-        onCallData();
-    }
-
     private void onCallData(){
         Call<ResponseClient<ArrayList<ServicioResponse>>> call = RetrofitClient.getInstance().getRequestInterface().getAdminServicio(
                 SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
@@ -71,9 +63,17 @@ public class AdministrarServiciosFragment extends Fragment {
 
             @Override
             public void doCallBackResponse(ResponseClient<ArrayList<ServicioResponse>> response) {
-                recycler_servicio.setAdapter(new ServiciosAdminAdapter(getContext(), response.getData()));
+                recycler_servicio.setAdapter(new ServiciosAdminAdapter(AdministrarServiciosFragment.this, response.getData()));
                 recycler_servicio.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        recycler_servicio.setVisibility(View.GONE);
+        animationView.setVisibility(View.VISIBLE);
+        onCallData();
     }
 }

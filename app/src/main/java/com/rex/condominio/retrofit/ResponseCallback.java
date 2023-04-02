@@ -13,31 +13,34 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public abstract class ResponseCallback<T> implements Callback<T> {
+public interface ResponseCallback<T> extends Callback<T> {
 
     @Override
-    public void onResponse(Call<T> call, Response<T> response) {
+    default void onResponse(Call<T> call, Response<T> response) {
         onFinish();
         if (response.isSuccessful()){
             doCallBackResponse(response.body());
         }else{
-            ResponseClient<TokenResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
-
-            new AlertDialog.Builder(returnContext())
-                    .setMessage(errorResponse.getMessage())
-                    .setPositiveButton("Aceptar", (d, v) -> d.dismiss())
-                    .create().show();
+            ResponseClient<Object> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
+            doCallBackErrorResponse(errorResponse);
         }
     }
 
     @Override
-    public void onFailure(Call<T> call, Throwable t) {
+    default void onFailure(Call<T> call, Throwable t) {
         Log.e("Error de petición", t.toString());
     }
 
-    public abstract Context returnContext();
+    Context returnContext();
 
-    public abstract void onFinish();
+    default void onFinish(){}
 
-    public abstract void doCallBackResponse(T response);
+    void doCallBackResponse(T response);
+
+    default void doCallBackErrorResponse(ResponseClient<Object> response){
+        new AlertDialog.Builder(returnContext())
+                .setMessage(response.getMessage())
+                .setPositiveButton("Aceptar", (d, v) -> d.dismiss())
+                .create().show();
+    }
 }

@@ -3,6 +3,7 @@ package com.rex.condominio.utils;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import com.rex.condominio.R;
 import com.rex.condominio.fragments.activarUser.QrScannerFragment;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -92,5 +94,14 @@ public class SupportPreferences extends Application {
     public static String formatCurrency(float currency){
         NumberFormat tf = NumberFormat.getCurrencyInstance();
         return tf.format(currency).replace("$", "") + " Bs";
+    }
+
+    public static String formatDate(String date){
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy").format(date);
+        }catch (Exception e){
+            Log.e("FormatDateNoParseable", date);
+            return date;
+        }
     }
 }
