@@ -85,7 +85,7 @@ public class UsuariosInactivosAdapter extends RecyclerView.Adapter<UsuariosInact
         holder.tv_nombre.setText(data.get(position).getNomUsu()+" "+data.get(position).getApeUsu());
 
         Glide.with(context)
-                .load(SupportPreferences.IMG_URL+data.get(position).getImgUsu())
+                .load(SupportPreferences.BASE_URL+data.get(position).getImgUsu())
                 .into(holder.image_profile);
 
         holder.cardView.setOnClickListener(V -> {

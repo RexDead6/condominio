@@ -31,45 +31,46 @@ import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RequestInterface {
 
-    @POST("login.php")
+    @POST("login")
     Call<ResponseClient<TokenResponse>> login(@Body LoginRequest loginRequest);
 
-    @POST("logout.php")
+    @POST("logout")
     Call<ResponseClient<Object>> logout(@Header("Authorization") String token);
 
-    @POST("usuario.php")
+    @POST("usuario")
     Call<ResponseClient<TokenResponse>> insertUsuario(@Body UsuarioRequest usuarioRequest);
 
-    @GET("usuario.php")
-    Call<ResponseClient<UsuarioResponse>> getUsuario(@Query("id") String id);
+    @GET("usuario/{id}")
+    Call<ResponseClient<UsuarioResponse>> getUsuario(@Path("id") String id);
 
-    @GET("usuario_inactivo.php")
+    @GET("usuarioInactivo")
     Call<ResponseClient<ArrayList<UsuarioResponse>>> getInactivos();
 
-    @POST("familia.php")
+    @POST("familia")
     Call<ResponseClient<Object>> insertFamilia(
             @Header("Authorization") String token,
             @Body FamiliaRequest familiaRequest
     );
 
-    @POST("relacionFamilia.php")
+    @POST("relacionFamilia")
     Call<ResponseClient<TokenResponse>> relacionFamiliar(
             @Header("Authorization") String token,
             @Body RelacionFamiliarRequest relacionFamiliarRequest
     );
 
-    @GET("familia.php")
+    @GET("familia")
     Call<ResponseClient<FamiliaResponse>> getFamilia(@Header("Authorization") String token);
 
-    @GET("familias.php")
+    @GET("familias")
     Call<ResponseClient<ArrayList<FamiliaResponse>>> getAllFamilia(@Header("Authorization") String token);
 
     @Multipart
-    @POST("anuncios.php")
+    @POST("anuncios")
     Call<ResponseClient<Object>> insertAnuncio(
             @Header("Authorization") String token,
             @Part MultipartBody.Part image,
@@ -77,65 +78,65 @@ public interface RequestInterface {
     );
 
     @Multipart
-    @POST("anuncios.php")
+    @POST("anuncios")
     Call<ResponseClient<Object>> insertAnuncio(
             @Header("Authorization") String token,
             @Part("descAnu") RequestBody descAnu
     );
 
-    @GET("anuncios.php")
+    @GET("anuncios")
     Call<ResponseClient<ArrayList<AnuncioResponse>>> getAnuncios(@Header("Authorization") String token);
 
-    @GET("bancos.php")
+    @GET("bancos")
     Call<ResponseClient<ArrayList<BancosResponse>>> getBancos();
 
-    @GET("pagoMovil.php")
+    @GET("pagoMovil")
     Call<ResponseClient<ArrayList<PagoMovilResponse>>> getPagoMovil(@Header("Authorization") String token);
 
-    @POST("PagoMovil.php")
+    @POST("PagoMovil")
     Call<ResponseClient<Object>> insetPagoMovil(
             @Header("Authorization") String token,
             @Body PagoMovilRequest pagoMovilRequest
     );
 
-    @POST("servicio.php")
+    @POST("servicio")
     Call<ResponseClient<Object>> insertServicio(
             @Header("Authorization") String token,
             @Body ServicioRequest servicioRequest
     );
 
-    @POST("factura.php")
+    @POST("factura")
     Call<ResponseClient<Object>> insertPagoServicio(
             @Header("Authorization") String token,
             @Body PagarServicioRequest pagarServicioRequest
     );
 
-    @GET("factura.php")
+    @GET("factura/{status}")
     Call<ResponseClient<ArrayList<FacturaResponse>>> getFacturas(
             @Header("Authorization") String token,
-            @Query("status") String status
+            @Path("status") String status
     );
 
-    @PATCH("FacturaAdmin.php")
+    @PATCH("FacturaAdmin/{idFac}/{status}")
     Call<ResponseClient<Object>> updateStatusFactura(
             @Header("Authorization") String token,
-            @Query("idFac") String idFac,
-            @Query("status") String status
+            @Path("idFac") String idFac,
+            @Path("status") String status
     );
 
-    @GET("FacturaAdmin.php")
+    @GET("FacturaAdmin/{idSer}/{status}")
     Call<ResponseClient<ArrayList<FacturaResponse>>> getFacturaAdmin(
             @Header("Authorization") String token,
             @Query("idSer") String idSer,
             @Query("status") String status
     );
 
-    @GET("servicio.php")
+    @GET("servicio")
     Call<ResponseClient<ArrayList<ServicioResponse>>> getServicio(@Header("Authorization") String token);
 
-    @GET("servicioAdmin.php")
+    @GET("servicioAdmin")
     Call<ResponseClient<ArrayList<ServicioResponse>>> getAdminServicio(@Header("Authorization") String token);
 
-    @GET("notificaciones.php")
+    @GET("notificaciones")
     Call<ResponseClient<PushMessageResponse>> getNotificaciones(@Header("Authorization") String token);
 }

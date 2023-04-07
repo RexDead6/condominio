@@ -24,8 +24,7 @@ import java.util.List;
 
 public class SupportPreferences extends Application {
 
-    public static final String BASE_URL = "http://192.168.1.117/proyectos/api_condominio/api/";
-    public static final String IMG_URL = "http://192.168.1.117/proyectos/api_condominio/assets/";
+    public static final String BASE_URL = "http://192.168.1.117:8000/";
     private static SupportPreferences instance;
     private SharedPreferences mpPreferences;
 

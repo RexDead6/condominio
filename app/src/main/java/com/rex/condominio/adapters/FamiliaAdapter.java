@@ -41,7 +41,7 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
         holder.tv_rol.setText(data.get(position).getRol().getNomRol());
 
         Glide.with(context)
-                .load(SupportPreferences.IMG_URL+data.get(position).getImgUsu())
+                .load(SupportPreferences.BASE_URL+data.get(position).getImgUsu())
                 .into(holder.image_profile);
     }
 
