@@ -2,12 +2,14 @@ package com.rex.condominio.retrofit;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.rex.condominio.activities.LoginActivity;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.TokenResponse;
+import com.rex.condominio.utils.SupportPreferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,6 +20,11 @@ public interface ResponseCallback<T> extends Callback<T> {
     @Override
     default void onResponse(Call<T> call, Response<T> response) {
         onFinish();
+        if (response.code() == 401){
+            SupportPreferences.getInstance(returnContext()).savePreference(SupportPreferences.TOKEN_PREFERENCE, "");
+            Intent intent = new Intent(returnContext(), LoginActivity.class);
+            returnContext().startActivity(intent);
+        }
         if (response.isSuccessful()){
             doCallBackResponse(response.body());
         }else{

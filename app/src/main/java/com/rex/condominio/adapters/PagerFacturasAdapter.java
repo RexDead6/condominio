@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.rex.condominio.activities.FacturasActivity;
+import com.rex.condominio.activities.servicios.FacturasActivity;
 import com.rex.condominio.fragments.servicios.PagerFacturaFragment;
 import com.rex.condominio.utils.TipoFactura;
 

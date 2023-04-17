@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primaryColor"
+    tools:context=".fragments.tienda.CrearProductoFragment">
+
+    <FrameLayout
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Registrar Producto"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/logo_png" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="-20dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_title">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="SpeakableTextPresentCheck">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.AppTheme.TextInputLayoutList"
+                    android:hint="Nombre del producto">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_nombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textAutoComplete|textAutoCorrect" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/title_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_input"
+                    android:text="Imagen del producto"
+                    android:textAlignment="center"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/layout_images"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_img"
+                    android:gravity="center">
+
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/btn_galery"
+                        android:layout_width="64dip"
+                        android:layout_height="64dip"
+                        android:src="@drawable/ic_baseline_image_search_24"
+                        android:tint="@color/white"
+                        app:cb_color="@color/primaryColor"
+                        tools:ignore="SpeakableTextPresentCheck" />
+
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/btn_camera"
+                        android:layout_width="64dip"
+                        android:layout_height="64dip"
+                        android:src="@drawable/ic_baseline_add_a_photo_24"
+                        android:tint="@color/white"
+                        app:cb_color="@color/primaryColor"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/title_img"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/btn_quit_img"
+                        android:layout_width="64dip"
+                        android:layout_height="64dip"
+                        android:onClick="btn_delete_phono"
+                        android:src="@drawable/ic_baseline_delete_24"
+                        android:tint="@color/white"
+                        app:cb_color="@color/primaryColor"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/img_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/btn_quit_img" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_enviar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Registrar"
+                    android:textAllCaps="false"
+                    android:backgroundTint="@color/gray" />
+            </LinearLayout>
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

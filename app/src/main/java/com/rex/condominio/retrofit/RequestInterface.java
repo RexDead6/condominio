@@ -1,18 +1,23 @@
 package com.rex.condominio.retrofit;
 
+import com.rex.condominio.retrofit.request.CompraRequest;
 import com.rex.condominio.retrofit.request.FamiliaRequest;
 import com.rex.condominio.retrofit.request.LoginRequest;
 import com.rex.condominio.retrofit.request.PagarServicioRequest;
 import com.rex.condominio.retrofit.request.PagoMovilRequest;
+import com.rex.condominio.retrofit.request.ProveedorRequest;
 import com.rex.condominio.retrofit.request.RelacionFamiliarRequest;
 import com.rex.condominio.retrofit.request.ServicioRequest;
 import com.rex.condominio.retrofit.request.UsuarioRequest;
 import com.rex.condominio.retrofit.response.AnuncioResponse;
 import com.rex.condominio.retrofit.response.BancosResponse;
+import com.rex.condominio.retrofit.response.CompraResponse;
 import com.rex.condominio.retrofit.response.FacturaByStatusResponse;
 import com.rex.condominio.retrofit.response.FacturaResponse;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
 import com.rex.condominio.retrofit.response.PagoMovilResponse;
+import com.rex.condominio.retrofit.response.ProductoResponse;
+import com.rex.condominio.retrofit.response.ProveedorResponse;
 import com.rex.condominio.retrofit.response.PushMessageResponse;
 import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.retrofit.response.TokenResponse;
@@ -20,6 +25,7 @@ import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.UsuarioResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -117,18 +123,18 @@ public interface RequestInterface {
             @Path("status") String status
     );
 
-    @PATCH("FacturaAdmin/{idFac}/{status}")
+    @PATCH("facturaAdmin/{idFac}/{status}")
     Call<ResponseClient<Object>> updateStatusFactura(
             @Header("Authorization") String token,
             @Path("idFac") String idFac,
             @Path("status") String status
     );
 
-    @GET("FacturaAdmin/{idSer}/{status}")
+    @GET("facturaAdmin/{idSer}/{status}")
     Call<ResponseClient<ArrayList<FacturaResponse>>> getFacturaAdmin(
             @Header("Authorization") String token,
-            @Query("idSer") String idSer,
-            @Query("status") String status
+            @Path("idSer") String idSer,
+            @Path("status") String status
     );
 
     @GET("servicio")
@@ -136,6 +142,40 @@ public interface RequestInterface {
 
     @GET("servicioAdmin")
     Call<ResponseClient<ArrayList<ServicioResponse>>> getAdminServicio(@Header("Authorization") String token);
+
+    @Multipart
+    @POST("producto")
+    Call<ResponseClient<Object>> insertProducto(
+            @Header("Authorization") String token,
+            @Part List<MultipartBody.Part> formData
+    );
+
+    @GET("productoAdmin")
+    Call<ResponseClient<ArrayList<ProductoResponse>>> getAdminProductos(
+            @Header("Authorization") String token
+    );
+
+    @POST("proveedor")
+    Call<ResponseClient<Object>> insertProveedor(
+            @Header("Authorization") String token,
+            @Body ProveedorRequest proveedorRequest
+    );
+
+    @GET("proveedor")
+    Call<ResponseClient<ArrayList<ProveedorResponse>>> getProveedor(
+            @Header("Authorization") String token
+    );
+
+    @POST("compra")
+    Call<ResponseClient<Object>> insertCompra(
+            @Header("Authorization") String token,
+            @Body CompraRequest compraRequest
+    );
+
+    @GET("compra")
+    Call<ResponseClient<ArrayList<CompraResponse>>> getCompra(
+            @Header("Authorization") String token
+    );
 
     @GET("notificaciones")
     Call<ResponseClient<PushMessageResponse>> getNotificaciones(@Header("Authorization") String token);

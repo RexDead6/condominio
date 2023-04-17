@@ -29,3 +29,5 @@
 -keep class sun.misc.** { *; }
 
 -keep class com.rex.condominio.retrofit.response.** {<fields>;}
+
+-keep class com.shockwave.**

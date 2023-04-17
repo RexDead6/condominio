@@ -3,6 +3,12 @@ package com.rex.condominio.utils;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
@@ -16,10 +22,15 @@ import com.google.gson.reflect.TypeToken;
 import com.rex.condominio.R;
 import com.rex.condominio.fragments.activarUser.QrScannerFragment;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class SupportPreferences extends Application {
@@ -102,5 +113,46 @@ public class SupportPreferences extends Application {
             Log.e("FormatDateNoParseable", date);
             return date;
         }
+    }
+
+    public static String getRealPathFromURI(Context context, Uri contentUri) {
+        Cursor cursor = null;
+        try {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+
+    public static File saveImage(Context context, Bitmap myBitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        File wallpaperDirectory = new File(Environment.getExternalStorageDirectory()+ File.separator + "DCIM" + File.separator + "Camera");
+        if (!wallpaperDirectory.exists()) {
+            wallpaperDirectory.mkdir();
+        }
+
+        try {
+            File f = new File(wallpaperDirectory, Calendar.getInstance().getTimeInMillis() + ".jpg");
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            MediaScannerConnection.scanFile(context,
+                    new String[]{f.getPath()},
+                    new String[]{"image/jpeg"}, null);
+            fo.close();
+            Log.d("TAG", "File Saved::---&gt;" + f.getAbsolutePath());
+
+            return f;
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return null;
     }
 }

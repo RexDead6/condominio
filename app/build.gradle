@@ -51,4 +51,5 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor")
     implementation 'com.github.kenglxn.QRGen:android:2.6.0'
     implementation "com.airbnb.android:lottie:5.2.0"
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }

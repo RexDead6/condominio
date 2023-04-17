@@ -1,4 +1,4 @@
-package com.rex.condominio.activities;
+package com.rex.condominio.activities.servicios;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
