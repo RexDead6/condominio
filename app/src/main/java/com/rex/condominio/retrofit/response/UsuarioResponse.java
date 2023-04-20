@@ -1,6 +1,9 @@
 package com.rex.condominio.retrofit.response;
 
-public class UsuarioResponse {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class UsuarioResponse implements Serializable {
     private int idUsu;
     private RolResponse Rol;
     private int statusUsu;
@@ -10,8 +13,9 @@ public class UsuarioResponse {
     private String generoUsu;
     private String telUsu;
     private String imgUsu;
+    private ArrayList<ProductoResponse> Productos;
 
-    public UsuarioResponse(int idUsu, RolResponse rol, int statusUsu, String cedUsu, String nomUsu, String apeUsu, String generoUsu, String telUsu, String imgUsu) {
+    public UsuarioResponse(int idUsu, RolResponse rol, int statusUsu, String cedUsu, String nomUsu, String apeUsu, String generoUsu, String telUsu, String imgUsu, ArrayList<ProductoResponse> productos) {
         this.idUsu = idUsu;
         Rol = rol;
         this.statusUsu = statusUsu;
@@ -21,6 +25,7 @@ public class UsuarioResponse {
         this.generoUsu = generoUsu;
         this.telUsu = telUsu;
         this.imgUsu = imgUsu;
+        Productos = productos;
     }
 
     public int getIdUsu() {
@@ -93,5 +98,13 @@ public class UsuarioResponse {
 
     public void setImgUsu(String imgUsu) {
         this.imgUsu = imgUsu;
+    }
+
+    public ArrayList<ProductoResponse> getProductos() {
+        return Productos;
+    }
+
+    public void setProductos(ArrayList<ProductoResponse> productos) {
+        Productos = productos;
     }
 }

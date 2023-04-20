@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -21,7 +23,7 @@ import com.rex.condominio.utils.SupportPreferences;
 
 public class ProductosActivity extends AppCompatActivity {
 
-    private FloatingActionButton btn_agregar, btn_comprar;
+    private FloatingActionButton btn_agregar, btn_comprar, btn_ventas;
     private LinearLayout container_btn;
 
     @Override
@@ -45,6 +47,7 @@ public class ProductosActivity extends AppCompatActivity {
 
         btn_agregar = findViewById(R.id.btn_agregar);
         btn_comprar = findViewById(R.id.btn_comprar);
+        btn_ventas = findViewById(R.id.btn_ventas);
         container_btn = findViewById(R.id.container_btn);
 
         btn_agregar.setOnClickListener(V -> {
@@ -55,6 +58,12 @@ public class ProductosActivity extends AppCompatActivity {
         btn_comprar.setOnClickListener(V -> {
             SupportPreferences.loadFrament(new CompraFragment(), getSupportFragmentManager().beginTransaction(), true, R.id.container_productos);
             translateButtons();
+        });
+
+        btn_ventas.setOnClickListener(V -> {
+            Intent intent = new Intent(this, VentasListasActivity.class);
+            intent.putExtra("type", "vendedor");
+            startActivity(intent);
         });
 
         SupportPreferences.loadFrament(new ProductosAdminFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.container_productos);

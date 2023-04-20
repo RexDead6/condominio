@@ -70,6 +70,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        SupportPreferences.loadFrament(new DashboardFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
+        SupportPreferences.loadFrament(new AnunciosFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
     }
 }

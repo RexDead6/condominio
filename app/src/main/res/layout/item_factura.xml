@@ -158,5 +158,14 @@
                 android:textColor="@color/black"
                 android:textSize="16dp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_reporte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Ver Reporte"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/gray"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

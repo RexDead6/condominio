@@ -6,13 +6,15 @@ public class PagoMovilResponse {
     private int status;
     private String telPmv;
     private String cedPmv;
+    private int venta;
 
-    public PagoMovilResponse(int idPmv, BancosResponse banco, int status, String telPmv, String cedPmv) {
+    public PagoMovilResponse(int idPmv, BancosResponse banco, int status, String telPmv, String cedPmv, int venta) {
         this.idPmv = idPmv;
         Banco = banco;
         this.status = status;
         this.telPmv = telPmv;
         this.cedPmv = cedPmv;
+        this.venta = venta;
     }
 
     public int getIdPmv() {
@@ -53,5 +55,13 @@ public class PagoMovilResponse {
 
     public void setCedPmv(String cedPmv) {
         this.cedPmv = cedPmv;
+    }
+
+    public int getVenta() {
+        return venta;
+    }
+
+    public void setVenta(int venta) {
+        this.venta = venta;
     }
 }

@@ -10,6 +10,7 @@ public class ProductoResponse implements Serializable {
     private int existPro;
     private String imgPro;
     private int status;
+    public int cantidad = 0;
 
     public ProductoResponse(int idPro, UsuarioResponse usuario, String nomPro, float costoPro, int existPro, String imgPro, int status) {
         this.idPro = idPro;

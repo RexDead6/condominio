@@ -1,6 +1,7 @@
 package com.rex.condominio.fragments.servicios;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,12 +15,14 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.rex.condominio.R;
+import com.rex.condominio.activities.PDFActivity;
 import com.rex.condominio.adapters.FacturaAdapter;
 import com.rex.condominio.adapters.FacturaAdminAdapter;
 import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.FacturaResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
+import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
 import java.util.ArrayList;
@@ -75,7 +78,14 @@ public class PagerFacturaFragment extends Fragment {
             public void doCallBackResponse(ResponseClient<ArrayList<FacturaResponse>> response) {
                 recycler_facturas.setVisibility(View.VISIBLE);
                 container_not_found.setVisibility(View.GONE);
-                recycler_facturas.setAdapter(new FacturaAdapter(response.getData()));
+                recycler_facturas.setAdapter(new FacturaAdapter(response.getData(), new OnClickResponse<FacturaResponse>() {
+                    @Override
+                    public void onClick(FacturaResponse object) {
+                        Intent intent = new Intent(getActivity(), PDFActivity.class);
+                        intent.putExtra("document", "servicio_"+object.getIdFac()+".pdf");
+                        startActivity(intent);
+                    }
+                }));
                 recycler_facturas.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 

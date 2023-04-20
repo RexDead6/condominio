@@ -21,11 +21,6 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/condominio" />
-
-            <Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00000000" />
         </FrameLayout>
 
         <androidx.cardview.widget.CardView
@@ -77,9 +72,50 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/header_profile"
             android:layout_marginTop="40dp"
-            android:padding="10dp">
+            android:padding="10dp"
+            android:orientation="vertical">
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.AppTheme.TextInputLayoutList"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="C.I">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_ci"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textAutoComplete"
+                    android:focusable="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.AppTheme.TextInputLayoutList"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre Completo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_nombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textAutoComplete"
+                    android:focusable="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.AppTheme.TextInputLayoutList"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="Rol">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_rol"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textAutoComplete"
+                    android:focusable="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

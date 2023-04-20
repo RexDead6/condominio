@@ -9,6 +9,7 @@ import com.rex.condominio.retrofit.request.ProveedorRequest;
 import com.rex.condominio.retrofit.request.RelacionFamiliarRequest;
 import com.rex.condominio.retrofit.request.ServicioRequest;
 import com.rex.condominio.retrofit.request.UsuarioRequest;
+import com.rex.condominio.retrofit.request.VentaRequest;
 import com.rex.condominio.retrofit.response.AnuncioResponse;
 import com.rex.condominio.retrofit.response.BancosResponse;
 import com.rex.condominio.retrofit.response.CompraResponse;
@@ -23,6 +24,7 @@ import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.UsuarioResponse;
+import com.rex.condominio.retrofit.response.VentaResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,11 @@ public interface RequestInterface {
 
     @POST("logout")
     Call<ResponseClient<Object>> logout(@Header("Authorization") String token);
+
+    @GET("usuario/{idUsu}")
+    Call<ResponseClient<UsuarioResponse>> getUsuById(
+            @Path("idUsu") String idUsu
+    );
 
     @POST("usuario")
     Call<ResponseClient<TokenResponse>> insertUsuario(@Body UsuarioRequest usuarioRequest);
@@ -79,15 +86,7 @@ public interface RequestInterface {
     @POST("anuncios")
     Call<ResponseClient<Object>> insertAnuncio(
             @Header("Authorization") String token,
-            @Part MultipartBody.Part image,
-            @Part("descAnu") RequestBody descAnu
-    );
-
-    @Multipart
-    @POST("anuncios")
-    Call<ResponseClient<Object>> insertAnuncio(
-            @Header("Authorization") String token,
-            @Part("descAnu") RequestBody descAnu
+            @Part List<MultipartBody.Part> formData
     );
 
     @GET("anuncios")
@@ -99,10 +98,21 @@ public interface RequestInterface {
     @GET("pagoMovil")
     Call<ResponseClient<ArrayList<PagoMovilResponse>>> getPagoMovil(@Header("Authorization") String token);
 
-    @POST("PagoMovil")
+    @POST("pagoMovil")
     Call<ResponseClient<Object>> insetPagoMovil(
             @Header("Authorization") String token,
             @Body PagoMovilRequest pagoMovilRequest
+    );
+
+    @GET("pagoMovil/{idUsu}")
+    Call<ResponseClient<PagoMovilResponse>> getCurrentPvm(
+            @Path("idUsu") String idUsu
+    );
+
+    @PATCH("pagoMovilVenta/{idPvm}")
+    Call<ResponseClient<Object>> updatePagomVenta(
+            @Header("Authorization") String token,
+            @Path("idPvm") String idPvm
     );
 
     @POST("servicio")
@@ -175,6 +185,31 @@ public interface RequestInterface {
     @GET("compra")
     Call<ResponseClient<ArrayList<CompraResponse>>> getCompra(
             @Header("Authorization") String token
+    );
+
+    @GET("ventaUsuarios")
+    Call<ResponseClient<ArrayList<UsuarioResponse>>> getVentaUsuarios(
+            @Header("Authorization") String token
+    );
+
+    @POST("venta")
+    Call<ResponseClient<Object>> insertVenta(
+            @Header("Authorization") String token,
+            @Body VentaRequest ventaRequest
+    );
+
+    @GET("venta/{type}/{status}")
+    Call<ResponseClient<ArrayList<VentaResponse>>> getVentas(
+            @Header("Authorization") String token,
+            @Path("type") String type,
+            @Path("status") String status
+    );
+
+    @PATCH("venta/{idVen}/{status}")
+    Call<ResponseClient<Object>> updateStatusVenta(
+            @Header("Authorization") String token,
+            @Path("idVen") String idVen,
+            @Path("status") String status
     );
 
     @GET("notificaciones")

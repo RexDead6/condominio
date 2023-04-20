@@ -22,6 +22,12 @@
         android:theme="@style/Theme.Condominio"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.tienda.VentasListasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.tienda.VentaActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.PDFActivity"
             android:exported="false" />
         <activity
@@ -73,4 +79,5 @@
             android:name=".activities.MainActivity"
             android:exported="true" />
     </application>
+
 </manifest>

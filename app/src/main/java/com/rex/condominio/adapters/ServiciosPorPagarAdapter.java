@@ -1,5 +1,6 @@
 package com.rex.condominio.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,13 @@ import com.rex.condominio.fragments.servicios.PagarServicioFragment;
 import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
+import com.rex.condominio.utils.TokenSupport;
 
 import java.util.ArrayList;
 
 public class ServiciosPorPagarAdapter extends RecyclerView.Adapter<ServiciosPorPagarAdapter.ViewHolder> {
 
+    private Context context;
     private ArrayList<ServicioResponse> data;
     private OnClickResponse<ServicioResponse> onClickResponse;
 
@@ -41,6 +44,10 @@ public class ServiciosPorPagarAdapter extends RecyclerView.Adapter<ServiciosPorP
         holder.tv_meses.setText(data.get(position).getIsMensualSer() == 0 ? "Pago unico" : data.get(position).getMesesPorPagar()+"");
         holder.tv_total.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer() * data.get(position).getMesesPorPagar()));
         holder.btn_pagar.setOnClickListener(V-> onClickResponse.onClick(data.get(position)));
+
+        if (!new TokenSupport(context).getIdRol().equals("2")){
+            holder.btn_pagar.setVisibility(View.GONE);
+        }
     }
 
     @Override

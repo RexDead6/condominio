@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.transition.MaterialArcMotion;
@@ -23,9 +25,12 @@ import com.rex.condominio.R;
 import com.rex.condominio.adapters.PagoMovilAdapter;
 import com.rex.condominio.dialogs.BancosDialog;
 import com.rex.condominio.dialogs.CrearPagoMovilDialog;
+import com.rex.condominio.dialogs.ProgressDialog;
+import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.PagoMovilResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
+import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
 import java.util.ArrayList;
@@ -88,7 +93,35 @@ public class PagoMovilActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseClient<ArrayList<PagoMovilResponse>>> call, Response<ResponseClient<ArrayList<PagoMovilResponse>>> response) {
                 if (response.code() == 200){
-                    recycler_pago_movil.setAdapter(new PagoMovilAdapter(response.body().getData()));
+                    recycler_pago_movil.setAdapter(new PagoMovilAdapter(response.body().getData(), new OnClickResponse<PagoMovilResponse>() {
+                        @Override
+                        public void onClick(PagoMovilResponse object) {
+                            ProgressDialog progressDialog = new ProgressDialog(PagoMovilActivity.this);
+                            progressDialog.show();
+
+                            Call<ResponseClient<Object>> call1 = RetrofitClient.getInstance().getRequestInterface().updatePagomVenta(
+                                    SupportPreferences.getInstance(PagoMovilActivity.this).getPreference(SupportPreferences.TOKEN_PREFERENCE),
+                                    object.getIdPmv()+""
+                            );
+                            call1.enqueue(new ResponseCallback<ResponseClient<Object>>() {
+                                @Override
+                                public Context returnContext() {
+                                    return PagoMovilActivity.this;
+                                }
+
+                                @Override
+                                public void onFinish() {
+                                    progressDialog.dismiss();
+                                }
+
+                                @Override
+                                public void doCallBackResponse(ResponseClient<Object> response) {
+                                    Toast.makeText(PagoMovilActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    getPagoMovil();
+                                }
+                            });
+                        }
+                    }));
                     recycler_pago_movil.setLayoutManager(new LinearLayoutManager(PagoMovilActivity.this));
                 }
             }

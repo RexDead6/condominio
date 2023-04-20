@@ -9,8 +9,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.rex.condominio.R;
 import com.rex.condominio.activities.FamiliaActivity;
 import com.rex.condominio.activities.LoginActivity;
@@ -19,7 +22,9 @@ import com.rex.condominio.dialogs.ProgressDialog;
 import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.ResponseClient;
+import com.rex.condominio.retrofit.response.UsuarioResponse;
 import com.rex.condominio.utils.SupportPreferences;
+import com.rex.condominio.utils.TokenSupport;
 
 import retrofit2.Call;
 
@@ -27,10 +32,37 @@ import retrofit2.Call;
 public class MiCuentaFragment extends Fragment {
 
     private FloatingActionButton btn_pago_movil, btn_familia, btn_logout;
+    private ImageView image_profile;
+    private TextInputEditText et_ci, et_nombre, et_rol;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_mi_cuenta, container, false);
+
+        image_profile = v.findViewById(R.id.image_profile);
+        et_ci = v.findViewById(R.id.et_ci);
+        et_nombre = v.findViewById(R.id.et_nombre);
+        et_rol = v.findViewById(R.id.et_rol);
+
+        Call<ResponseClient<UsuarioResponse>> call1 = RetrofitClient.getInstance().getRequestInterface().getUsuById(
+                new TokenSupport(getContext()).getIdUsu()+""
+        );
+        call1.enqueue(new ResponseCallback<ResponseClient<UsuarioResponse>>() {
+            @Override
+            public Context returnContext() {
+                return getContext();
+            }
+
+            @Override
+            public void doCallBackResponse(ResponseClient<UsuarioResponse> response) {
+                Glide.with(getContext())
+                        .load(SupportPreferences.BASE_URL+response.getData().getImgUsu())
+                        .into(image_profile);
+                et_ci.setText(response.getData().getCedUsu());
+                et_nombre.setText(response.getData().getNomUsu() + " " + response.getData().getApeUsu());
+                et_rol.setText(response.getData().getRol().getNomRol());
+            }
+        });
 
         btn_pago_movil = v.findViewById(R.id.btn_pago_movil);
         btn_pago_movil.setOnClickListener(V -> {

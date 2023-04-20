@@ -28,6 +28,7 @@ import com.rex.condominio.retrofit.response.FamiliaResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.utils.SupportPreferences;
+import com.rex.condominio.utils.TokenSupport;
 
 import net.glxn.qrgen.android.QRCode;
 
@@ -49,6 +50,10 @@ public class FamiliaActivity extends AppCompatActivity {
         btn_familias = findViewById(R.id.btn_familias);
 
         SupportPreferences.loadFrament(new FamiliaFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.container_familia);
+
+        if (!new TokenSupport(this).getIdRol().equals("1")){
+            btn_familias.setVisibility(View.GONE);
+        }
     }
 
     public void openFamilias(View view){

@@ -115,7 +115,8 @@
             android:textColor="@color/white"
             android:textSize="18dp"
             android:textAlignment="textEnd"
-            android:paddingRight="10dp"/>
+            android:paddingRight="10dp"
+            android:visibility="gone"/>
 
         <FrameLayout
             android:id="@+id/btn_registrate"

@@ -9,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -32,6 +33,7 @@ import com.google.android.material.transition.platform.MaterialContainerTransfor
 import com.google.gson.Gson;
 import com.rex.condominio.R;
 import com.rex.condominio.dialogs.ProgressDialog;
+import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.TokenResponse;
@@ -117,24 +119,35 @@ public class CrearAnuncioActivity extends AppCompatActivity {
                     tv_descripcion.setError("Ingrese una descripcion");
                     return true;
                 }
-                RequestBody requestDesc = RequestBody.create(MediaType.parse("multipart/form-data"), tv_descripcion.getText().toString());
-                progress.show();
-                if (fileImg == null){
-                    Call<ResponseClient<Object>> call = RetrofitClient.getInstance().getRequestInterface().insertAnuncio(
-                            SupportPreferences.getInstance(this).getPreference(SupportPreferences.TOKEN_PREFERENCE),
-                            requestDesc
-                    );
-                    call.enqueue(callback);
-                }else{
-                    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileImg);
-                    MultipartBody.Part requestImage = MultipartBody.Part.createFormData("image", fileImg.getName(), requestFile);
-                    Call<ResponseClient<Object>> call = RetrofitClient.getInstance().getRequestInterface().insertAnuncio(
-                            SupportPreferences.getInstance(this).getPreference(SupportPreferences.TOKEN_PREFERENCE),
-                            requestImage,
-                            requestDesc
-                    );
-                    call.enqueue(callback);
-                }
+
+                MultipartBody.Builder builder = new MultipartBody.Builder();
+                builder.setType(MultipartBody.FORM);
+
+                builder.addFormDataPart("descAnu", tv_descripcion.getText().toString());
+                if (fileImg != null)
+                    builder.addFormDataPart("image", fileImg.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), fileImg));
+
+                Call<ResponseClient<Object>> insert = RetrofitClient.getInstance().getRequestInterface().insertAnuncio(
+                        SupportPreferences.getInstance(this).getPreference(SupportPreferences.TOKEN_PREFERENCE),
+                        builder.build().parts()
+                );
+                insert.enqueue(new ResponseCallback<ResponseClient<Object>>() {
+                    @Override
+                    public Context returnContext() {
+                        return CrearAnuncioActivity.this;
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        progress.dismiss();
+                    }
+
+                    @Override
+                    public void doCallBackResponse(ResponseClient<Object> response) {
+                        Toast.makeText(CrearAnuncioActivity.this, "Anuncio Publicado exitosamente", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }
+                });
                 break;
             }
             default:
@@ -171,9 +184,8 @@ public class CrearAnuncioActivity extends AppCompatActivity {
     public void btn_image(View v){
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-
-        startActivityForResult(intent, SELECT_IMG);
+        intent.setAction(Intent.ACTION_PICK);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_IMG);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -212,29 +224,14 @@ public class CrearAnuncioActivity extends AppCompatActivity {
                 Uri selectUri = data.getData();
                 if (selectUri != null){
                     img_preview.setImageURI(selectUri);
-                    fileImg = new File(selectUri.getPath());
+                    fileImg = new File(SupportPreferences.getRealPathFromURI(this, selectUri));
                 }
             }
 
             if (requestCode == TAKE_IMG){
-                Bitmap img = (Bitmap) data.getExtras().get("data");
-                img_preview.setImageBitmap(img);
-                BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-                Bitmap bitmap = BitmapFactory.decodeFile(fileImg.getAbsolutePath(), bitmapOptions);
-
-                String path = android.os.Environment.getExternalStorageDirectory()
-                        +File.separator
-                        +"Phoenix" + File.separator + "default";
-                fileImg.delete();
-                fileImg = new File(path, "temp_image.jpg");
-
-                try {
-                    OutputStream outFile = new FileOutputStream(fileImg);
-                    outFile.flush();
-                    outFile.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                img_preview.setImageBitmap(thumbnail);
+                fileImg = SupportPreferences.saveImage(this, thumbnail);
             }
 
             layout_images.setVisibility(View.GONE);

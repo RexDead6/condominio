@@ -10,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.rex.condominio.R;
 import com.rex.condominio.retrofit.response.FacturaResponse;
+import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
 import com.rex.condominio.utils.TipoFactura;
 
@@ -20,9 +22,11 @@ import java.util.ArrayList;
 public class FacturaAdapter extends RecyclerView.Adapter<FacturaAdapter.ViewHolder> {
 
     private ArrayList<FacturaResponse> data;
+    private OnClickResponse<FacturaResponse> onClickResponse;
 
-    public FacturaAdapter(ArrayList<FacturaResponse> data) {
+    public FacturaAdapter(ArrayList<FacturaResponse> data, OnClickResponse<FacturaResponse> onClickResponse) {
         this.data = data;
+        this.onClickResponse = onClickResponse;
     }
 
     @NonNull
@@ -40,6 +44,7 @@ public class FacturaAdapter extends RecyclerView.Adapter<FacturaAdapter.ViewHold
         holder.tv_fecha.setText(SupportPreferences.formatDate(data.get(position).getFechapagFac()));
         holder.tv_ref.setText(data.get(position).getPagos().get(0).getRefPag());
         holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoFac()));
+        holder.btn_reporte.setOnClickListener(V -> onClickResponse.onClick(data.get(position)));
     }
 
     @Override
@@ -49,6 +54,7 @@ public class FacturaAdapter extends RecyclerView.Adapter<FacturaAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tv_id, tv_servicio, tv_meses, tv_fecha, tv_ref, tv_monto;
+        private MaterialButton btn_reporte;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -58,6 +64,7 @@ public class FacturaAdapter extends RecyclerView.Adapter<FacturaAdapter.ViewHold
             tv_fecha = itemView.findViewById(R.id.tv_fecha);
             tv_ref = itemView.findViewById(R.id.tv_ref);
             tv_monto = itemView.findViewById(R.id.tv_monto);
+            btn_reporte = itemView.findViewById(R.id.btn_reporte);
         }
     }
 }

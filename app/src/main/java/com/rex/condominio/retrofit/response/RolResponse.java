@@ -1,6 +1,8 @@
 package com.rex.condominio.retrofit.response;
 
-public class RolResponse {
+import java.io.Serializable;
+
+public class RolResponse implements Serializable {
     private int idRol;
     private String nomRol;
     private int nivelRol;

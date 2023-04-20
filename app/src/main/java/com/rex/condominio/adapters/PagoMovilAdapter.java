@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.rex.condominio.R;
 import com.rex.condominio.retrofit.response.PagoMovilResponse;
 import com.rex.condominio.utils.OnClickResponse;
@@ -22,12 +23,6 @@ public class PagoMovilAdapter extends RecyclerView.Adapter<PagoMovilAdapter.View
     private ArrayList<PagoMovilResponse> data;
     private ArrayList<PagoMovilResponse> dataFilter;
     private OnClickResponse<PagoMovilResponse> onClickResponse;
-
-    public PagoMovilAdapter(ArrayList<PagoMovilResponse> data) {
-        this.data = data;
-        this.dataFilter = data;
-        onClickResponse = (Pm) -> {};
-    }
 
     public PagoMovilAdapter(ArrayList<PagoMovilResponse> data, OnClickResponse<PagoMovilResponse> onClickResponse) {
         this.data = data;
@@ -78,7 +73,13 @@ public class PagoMovilAdapter extends RecyclerView.Adapter<PagoMovilAdapter.View
         holder.tv_cedula.setText(data.get(position).getCedPmv());
         holder.tv_telefono.setText(data.get(position).getTelPmv());
         holder.tv_banco.setText(data.get(position).getBanco().getNomBan());
-        holder.container.setOnClickListener(V -> onClickResponse.onClick(data.get(position)));
+        holder.btn_ventas.setOnClickListener(V -> onClickResponse.onClick(data.get(position)));
+
+        if (data.get(position).getVenta() == 1){
+            holder.tv_ventas.setVisibility(View.VISIBLE);
+        } else {
+            holder.btn_ventas.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -88,15 +89,16 @@ public class PagoMovilAdapter extends RecyclerView.Adapter<PagoMovilAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tv_cedula, tv_telefono, tv_banco;
-        private CardView container;
+        private TextView tv_cedula, tv_telefono, tv_banco, tv_ventas;
+        private MaterialButton btn_ventas;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_cedula = itemView.findViewById(R.id.tv_cedula);
             tv_telefono = itemView.findViewById(R.id.tv_telefono);
             tv_banco = itemView.findViewById(R.id.tv_banco);
-            container = itemView.findViewById(R.id.container);
+            tv_ventas = itemView.findViewById(R.id.tv_ventas);
+            btn_ventas = itemView.findViewById(R.id.btn_ventas);
         }
     }
 }

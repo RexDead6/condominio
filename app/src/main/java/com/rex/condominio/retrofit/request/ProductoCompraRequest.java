@@ -13,6 +13,11 @@ public class ProductoCompraRequest {
         this.costo = costo;
     }
 
+    public ProductoCompraRequest(ProductoResponse producto, int cantidad) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+    }
+
     public ProductoCompraRequest(ProductoResponse producto){
         this.producto = producto;
         this.cantidad = 0;

@@ -59,6 +59,10 @@ public class AnunciosFragment extends Fragment {
             startActivity(intent, options.toBundle());
         });
 
+        if (!new TokenSupport(getContext()).getIdRol().equals("1")){
+            floatingButtom.setVisibility(View.GONE);
+        }
+
         callRequest();
         return v;
     }
