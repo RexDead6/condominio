@@ -2,6 +2,7 @@ package com.rex.condominio.activities.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.rex.condominio.R;
 import com.rex.condominio.dialogs.ProgressDialog;
+import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.request.UsuarioRequest;
 import com.rex.condominio.retrofit.response.TokenResponse;
@@ -78,27 +80,23 @@ public class RegisterActivity extends AppCompatActivity {
         progressDialog.show();
 
         Call<ResponseClient<TokenResponse>> call = RetrofitClient.getInstance().getRequestInterface().insertUsuario(usuarioRequest);
-        call.enqueue(new Callback<ResponseClient<TokenResponse>>() {
+        call.enqueue(new ResponseCallback<ResponseClient<TokenResponse>>() {
             @Override
-            public void onResponse(Call<ResponseClient<TokenResponse>> call, Response<ResponseClient<TokenResponse>> response) {
-                progressDialog.dismiss();
-                if (response.code() == 201){
-                    Intent intent = new Intent(RegisterActivity.this, ActivarUserActivity.class);
-                    SupportPreferences.getInstance(RegisterActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.body().getData().getToken());
-                    startActivity(intent);
-                    finish();
-                } else {
-                    new MaterialAlertDialogBuilder(RegisterActivity.this)
-                            .setMessage(response.body().getMessage())
-                            .setPositiveButton("Aceptar", (d, w) -> d.dismiss())
-                            .create().show();
-                }
+            public Context returnContext() {
+                return RegisterActivity.this;
             }
 
             @Override
-            public void onFailure(Call<ResponseClient<TokenResponse>> call, Throwable t) {
-                Log.e("UserInsert", t.toString());
+            public void onFinish() {
                 progressDialog.dismiss();
+            }
+
+            @Override
+            public void doCallBackResponse(ResponseClient<TokenResponse> response) {
+                Intent intent = new Intent(RegisterActivity.this, ActivarUserActivity.class);
+                SupportPreferences.getInstance(RegisterActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.getData().getToken());
+                startActivity(intent);
+                finish();
             }
         });
     }
