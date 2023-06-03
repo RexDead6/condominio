@@ -50,6 +50,15 @@
                 app:cb_color="@color/primaryColor"
                 android:tint="@color/white"
                 android:transitionName="qr_transition"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Su cuenta en este momento se cuentra inactiva, para poder iniciar sesion debe escanear el código QR de alguna familia.\n\nSi Usted esta en proceso de creación familiar debe esperar que el administrador cree a su familia a su nombre"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>
