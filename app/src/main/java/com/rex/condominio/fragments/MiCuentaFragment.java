@@ -56,7 +56,7 @@ public class MiCuentaFragment extends Fragment {
             @Override
             public void doCallBackResponse(ResponseClient<UsuarioResponse> response) {
                 Glide.with(getContext())
-                        .load(SupportPreferences.BASE_URL+response.getData().getImgUsu())
+                        .load(SupportPreferences.BASE_URL_ASSETS+response.getData().getImgUsu())
                         .into(image_profile);
                 et_ci.setText(response.getData().getCedUsu());
                 et_nombre.setText(response.getData().getNomUsu() + " " + response.getData().getApeUsu());

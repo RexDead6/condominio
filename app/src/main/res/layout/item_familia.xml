@@ -50,14 +50,30 @@
                 android:textSize="18dp"
                 android:textColor="@color/black"/>
 
-            <TextView
-                android:id="@+id/tv_rol"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Inquilino"
-                android:textAlignment="textEnd"
-                android:textSize="18dp"
-                android:textColor="@color/black"/>
+                android:orientation="horizontal"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/isJefe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jefe de Familia - "
+                    android:textAlignment="textEnd"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_rol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Inquilino"
+                    android:textAlignment="textEnd"
+                    android:textSize="18dp"
+                    android:textColor="@color/black"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

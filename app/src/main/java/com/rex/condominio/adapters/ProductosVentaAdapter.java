@@ -42,7 +42,7 @@ public class ProductosVentaAdapter extends RecyclerView.Adapter<ProductosVentaAd
     @Override
     public void onBindViewHolder(@NonNull ProductosVentaAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(context)
-                .load(SupportPreferences.BASE_URL+data.get(position).getImgPro())
+                .load(SupportPreferences.BASE_URL_ASSETS+data.get(position).getImgPro())
                 .into(holder.imgProducto);
         holder.tv_nombre.setText(data.get(position).getNomPro());
         holder.tv_costo.setText(SupportPreferences.formatCurrency(data.get(position).getCostoPro()));

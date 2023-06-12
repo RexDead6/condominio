@@ -3,6 +3,7 @@ package com.rex.condominio.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.rex.condominio.R;
 import com.rex.condominio.activities.register.ActivarUserActivity;
 import com.rex.condominio.activities.register.RegisterActivity;
 import com.rex.condominio.dialogs.ProgressDialog;
+import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.request.LoginRequest;
 import com.rex.condominio.retrofit.response.TokenResponse;
@@ -59,34 +61,28 @@ public class LoginActivity extends AppCompatActivity {
             );
 
             Call<ResponseClient<TokenResponse>> clientCall = RetrofitClient.getInstance().getRequestInterface().login(loginRequest);
-            clientCall.enqueue(new Callback<ResponseClient<TokenResponse>>() {
+            clientCall.enqueue(new ResponseCallback<ResponseClient<TokenResponse>>() {
                 @Override
-                public void onResponse(Call<ResponseClient<TokenResponse>> call, Response<ResponseClient<TokenResponse>> response) {
-                    progressDialog.dismiss();
-                    if (response.code() == 200) {
-                        SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.body().getData().getToken());
-                        TokenSupport token = new TokenSupport(LoginActivity.this);
-                        Intent intent = new Intent(LoginActivity.this, ActivarUserActivity.class);
-                        if (!token.getIdFam().equals("00")) {
-                            intent = new Intent(LoginActivity.this, MainActivity.class);
-                        }
-                        startActivity(intent);
-                        finish();
-                        return;
-                    }
-
-                    ResponseClient<TokenResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
-
-                    new AlertDialog.Builder(LoginActivity.this)
-                            .setMessage(errorResponse.getMessage())
-                            .setPositiveButton("Aceptar", (d, v) -> d.dismiss())
-                            .create().show();
+                public Context returnContext() {
+                    return LoginActivity.this;
                 }
 
                 @Override
-                public void onFailure(Call<ResponseClient<TokenResponse>> call, Throwable t) {
-                    Log.e("login", t.toString());
+                public void onFinish() {
                     progressDialog.dismiss();
+                }
+
+                @Override
+                public void doCallBackResponse(ResponseClient<TokenResponse> response) {
+                    SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.getData().getToken());
+                    SupportPreferences.IS_JEFE_FAMILIA  = response.getData().isJefe();
+                    TokenSupport token = new TokenSupport(LoginActivity.this);
+                    Intent intent = new Intent(LoginActivity.this, ActivarUserActivity.class);
+                    if (!token.getIdFam().equals("00")) {
+                        intent = new Intent(LoginActivity.this, MainActivity.class);
+                    }
+                    startActivity(intent);
+                    finish();
                 }
             });
         });

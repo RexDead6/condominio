@@ -100,7 +100,7 @@ public class FamiliaFragment extends Fragment {
                 animationView.setVisibility(View.GONE);
                 recycler_familia.setVisibility(View.VISIBLE);
 
-                recycler_familia.setAdapter(new FamiliaAdapter(getContext(), response.getData().getUsers()));
+                recycler_familia.setAdapter(new FamiliaAdapter(getContext(), response.getData().getUsers(), response.getData().getJefeFamilia().getIdUsu()));
                 recycler_familia.setLayoutManager(new LinearLayoutManager(getContext()));
                 return;
             }

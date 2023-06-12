@@ -44,10 +44,7 @@ public class ServiciosPorPagarAdapter extends RecyclerView.Adapter<ServiciosPorP
         holder.tv_meses.setText(data.get(position).getIsMensualSer() == 0 ? "Pago unico" : data.get(position).getMesesPorPagar()+"");
         holder.tv_total.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer() * data.get(position).getMesesPorPagar()));
         holder.btn_pagar.setOnClickListener(V-> onClickResponse.onClick(data.get(position)));
-
-        if (!new TokenSupport(context).getIdRol().equals("2")){
-            holder.btn_pagar.setVisibility(View.GONE);
-        }
+        holder.btn_pagar.setVisibility(SupportPreferences.IS_JEFE_FAMILIA ? View.VISIBLE : View.GONE);
     }
 
     @Override

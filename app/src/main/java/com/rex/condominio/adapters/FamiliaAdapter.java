@@ -21,10 +21,12 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
 
     private Context context;
     private ArrayList<UsuarioResponse> data;
+    private int idJefeFamilia;
 
-    public FamiliaAdapter(Context context, ArrayList<UsuarioResponse> data) {
+    public FamiliaAdapter(Context context, ArrayList<UsuarioResponse> data, int idJefeFamilia) {
         this.context = context;
         this.data = data;
+        this.idJefeFamilia = idJefeFamilia;
     }
 
     @NonNull
@@ -39,9 +41,10 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
         holder.tv_cedula.setText(data.get(position).getCedUsu());
         holder.tv_nombre.setText(data.get(position).getNomUsu()+" "+data.get(position).getApeUsu());
         holder.tv_rol.setText(data.get(position).getRol().getNomRol());
+        holder.isJefe.setVisibility(idJefeFamilia == data.get(position).getIdUsu() ? View.VISIBLE : View.GONE);
 
         Glide.with(context)
-                .load(SupportPreferences.BASE_URL+data.get(position).getImgUsu())
+                .load(SupportPreferences.BASE_URL_ASSETS+data.get(position).getImgUsu())
                 .into(holder.image_profile);
     }
 
@@ -53,7 +56,7 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView image_profile;
-        private TextView tv_cedula, tv_nombre, tv_rol;
+        private TextView tv_cedula, tv_nombre, tv_rol, isJefe;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +64,7 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
             tv_cedula = itemView.findViewById(R.id.tv_cedula);
             tv_nombre = itemView.findViewById(R.id.tv_nombre);
             tv_rol = itemView.findViewById(R.id.tv_rol);
+            isJefe = itemView.findViewById(R.id.isJefe);
         }
     }
 }

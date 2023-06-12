@@ -35,12 +35,13 @@ import java.util.List;
 
 public class SupportPreferences extends Application {
 
-    public static final String BASE_URL = "http://192.168.1.117:8000/";
+    public static final String BASE_URL = "http://192.168.1.143:8000/";
+    public static final String BASE_URL_ASSETS = BASE_URL+"src/assets/";
     private static SupportPreferences instance;
     private SharedPreferences mpPreferences;
-
     private final String ARCHIVE_PREFERENCE = "CONDOMINIO.PREFERENCES";
     public static String TOKEN_PREFERENCE = "CONDOMINIO.TOKEN";
+    public static boolean IS_JEFE_FAMILIA = false;
     public static String NOTIFICACION_PREFERENCE = "CONDOMINIO.NOTIFICACION";
     public static String FAMILIA_LIST_OBJECT = "CONDOMINIO.OBJECT.FAMILIA";
 
@@ -53,6 +54,10 @@ public class SupportPreferences extends Application {
 
     private SupportPreferences(Context context) {
         mpPreferences = context.getSharedPreferences(ARCHIVE_PREFERENCE, context.MODE_PRIVATE);
+    }
+
+    public void setIsJefeFamilia(boolean isJefeFamilia) {
+        this.IS_JEFE_FAMILIA = isJefeFamilia;
     }
 
     public void savePreference(String preference, String value) {

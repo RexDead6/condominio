@@ -43,7 +43,7 @@ public class AnunciosAdapter extends RecyclerView.Adapter<AnunciosAdapter.ViewHo
         if (!data.get(position).getImage().equals("")) {
             holder.image.setVisibility(View.VISIBLE);
             Glide.with(context)
-                    .load(SupportPreferences.BASE_URL + data.get(position).getImage())
+                    .load(SupportPreferences.BASE_URL_ASSETS + data.get(position).getImage())
                     .into(holder.image);
         }
     }

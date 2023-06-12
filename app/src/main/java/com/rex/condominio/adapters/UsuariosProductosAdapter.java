@@ -42,18 +42,18 @@ public class UsuariosProductosAdapter extends RecyclerView.Adapter<UsuariosProdu
     @Override
     public void onBindViewHolder(@NonNull UsuariosProductosAdapter.ViewHolder holder, int position) {
         Glide.with(context)
-                .load(SupportPreferences.BASE_URL+data.get(position).getImgUsu())
+                .load(SupportPreferences.BASE_URL_ASSETS+data.get(position).getImgUsu())
                 .into(holder.imageUser);
         holder.nombreUser.setText(data.get(position).getNomUsu() + " " +data.get(position).getApeUsu());
 
         Glide.with(context)
-                .load(SupportPreferences.BASE_URL+data.get(position).getProductos().get(0).getImgPro())
+                .load(SupportPreferences.BASE_URL_ASSETS+data.get(position).getProductos().get(0).getImgPro())
                 .into(holder.imageProducto1);
         holder.nombreProducto1.setText(data.get(position).getProductos().get(0).getNomPro());
 
         if (data.get(position).getProductos().size() > 1){
             Glide.with(context)
-                    .load(SupportPreferences.BASE_URL+data.get(position).getProductos().get(1).getImgPro())
+                    .load(SupportPreferences.BASE_URL_ASSETS+data.get(position).getProductos().get(1).getImgPro())
                     .into(holder.imageProducto2);
             holder.nombreProducto2.setText(data.get(position).getProductos().get(1).getNomPro());
             holder.layoutProducto2.setVisibility(View.VISIBLE);

@@ -47,7 +47,7 @@ public class PDFActivity extends AppCompatActivity {
             onBackPressed();
         }
 
-        new RetrievePDFfromUrl().execute(SupportPreferences.BASE_URL + "pdf/" +extras.getString("document"));
+        new RetrievePDFfromUrl().execute(SupportPreferences.BASE_URL_ASSETS + "pdf/" +extras.getString("document"));
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

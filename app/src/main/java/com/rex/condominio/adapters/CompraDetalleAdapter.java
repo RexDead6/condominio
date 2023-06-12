@@ -38,7 +38,7 @@ public class CompraDetalleAdapter extends RecyclerView.Adapter<CompraDetalleAdap
     @Override
     public void onBindViewHolder(@NonNull CompraDetalleAdapter.ViewHolder holder, int position) {
         Glide.with(context)
-                .load(SupportPreferences.BASE_URL+data.get(position).getProducto().getImgPro())
+                .load(SupportPreferences.BASE_URL_ASSETS+data.get(position).getProducto().getImgPro())
                 .into(holder.imgProducto);
         holder.tv_costo.setText(SupportPreferences.formatCurrency(data.get(position).getCosto()));
         holder.tv_nombre.setText(data.get(position).getProducto().getNomPro());

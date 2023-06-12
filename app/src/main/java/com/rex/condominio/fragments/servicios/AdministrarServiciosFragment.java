@@ -32,6 +32,7 @@ public class AdministrarServiciosFragment extends Fragment {
 
     private RecyclerView recycler_servicio;
     private LottieAnimationView animationView;
+    private View view_not_found;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class AdministrarServiciosFragment extends Fragment {
 
         recycler_servicio = v.findViewById(R.id.recycler_servicio);
         animationView = v.findViewById(R.id.animationView);
+        view_not_found = v.findViewById(R.id.view_not_found);
 
         onCallData();
 
@@ -58,13 +60,18 @@ public class AdministrarServiciosFragment extends Fragment {
             @Override
             public void onFinish() {
                 animationView.setVisibility(View.GONE);
-                recycler_servicio.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void doCallBackResponse(ResponseClient<ArrayList<ServicioResponse>> response) {
                 recycler_servicio.setAdapter(new ServiciosAdminAdapter(AdministrarServiciosFragment.this, response.getData()));
                 recycler_servicio.setLayoutManager(new LinearLayoutManager(getContext()));
+                recycler_servicio.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void doCallBackErrorResponse(ResponseClient<Object> response) {
+                view_not_found.setVisibility(View.VISIBLE);
             }
         });
     }

@@ -49,7 +49,7 @@ public class ProductosAdminAdapter extends RecyclerView.Adapter<ProductosAdminAd
         holder.tv_costo.setText(SupportPreferences.formatCurrency(data.get(position).getCostoPro()));
         holder.tv_existencia.setText(data.get(position).getExistPro()+"");
         Glide.with(context)
-                .load(SupportPreferences.BASE_URL+data.get(position).getImgPro())
+                .load(SupportPreferences.BASE_URL_ASSETS+data.get(position).getImgPro())
                 .into(holder.imgProducto);
         if (onClickResponse != null) holder.card.setOnClickListener(V -> onClickResponse.onClick(data.get(position)));
     }

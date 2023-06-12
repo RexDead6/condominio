@@ -8,13 +8,15 @@ public class FamiliaResponse {
     private String hashFam;
     private String direccion;
     private ArrayList<UsuarioResponse> users;
+    private UsuarioResponse JefeFamilia;
 
-    public FamiliaResponse(int idFam, String descFam, String hashFam, String direccion, ArrayList<UsuarioResponse> users) {
+    public FamiliaResponse(int idFam, String descFam, String hashFam, String direccion, ArrayList<UsuarioResponse> users, UsuarioResponse jefeFamilia) {
         this.idFam = idFam;
         this.descFam = descFam;
         this.hashFam = hashFam;
         this.direccion = direccion;
         this.users = users;
+        JefeFamilia = jefeFamilia;
     }
 
     public int getIdFam() {
@@ -55,5 +57,13 @@ public class FamiliaResponse {
 
     public void setUsers(ArrayList<UsuarioResponse> users) {
         this.users = users;
+    }
+
+    public UsuarioResponse getJefeFamilia() {
+        return JefeFamilia;
+    }
+
+    public void setJefeFamilia(UsuarioResponse jefeFamilia) {
+        JefeFamilia = jefeFamilia;
     }
 }

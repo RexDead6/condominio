@@ -110,7 +110,7 @@ public class TiendaFragment extends Fragment implements Serializable {
 
             @Override
             public void doCallBackErrorResponse(ResponseClient<Object> response) {
-                view_not_found.setVisibility(View.GONE);
+                view_not_found.setVisibility(View.VISIBLE);
             }
         });
     }
