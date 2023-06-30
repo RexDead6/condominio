@@ -23,11 +23,13 @@ public class PagoMovilAdapter extends RecyclerView.Adapter<PagoMovilAdapter.View
     private ArrayList<PagoMovilResponse> data;
     private ArrayList<PagoMovilResponse> dataFilter;
     private OnClickResponse<PagoMovilResponse> onClickResponse;
+    private boolean isService;
 
-    public PagoMovilAdapter(ArrayList<PagoMovilResponse> data, OnClickResponse<PagoMovilResponse> onClickResponse) {
+    public PagoMovilAdapter(ArrayList<PagoMovilResponse> data, boolean isService ,OnClickResponse<PagoMovilResponse> onClickResponse) {
         this.data = data;
         this.dataFilter = data;
         this.onClickResponse = onClickResponse;
+        this.isService = isService;
     }
 
     @Override
@@ -75,10 +77,15 @@ public class PagoMovilAdapter extends RecyclerView.Adapter<PagoMovilAdapter.View
         holder.tv_banco.setText(data.get(position).getBanco().getNomBan());
         holder.btn_ventas.setOnClickListener(V -> onClickResponse.onClick(data.get(position)));
 
-        if (data.get(position).getVenta() == 1){
-            holder.tv_ventas.setVisibility(View.VISIBLE);
-        } else {
+        if (isService){
+            holder.btn_ventas.setText("Seleccionar");
             holder.btn_ventas.setVisibility(View.VISIBLE);
+        } else {
+            if (data.get(position).getVenta() == 1){
+                holder.tv_ventas.setVisibility(View.VISIBLE);
+            } else {
+                holder.btn_ventas.setVisibility(View.VISIBLE);
+            }
         }
     }
 

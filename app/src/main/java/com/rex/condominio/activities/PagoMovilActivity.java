@@ -93,7 +93,7 @@ public class PagoMovilActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseClient<ArrayList<PagoMovilResponse>>> call, Response<ResponseClient<ArrayList<PagoMovilResponse>>> response) {
                 if (response.code() == 200){
-                    recycler_pago_movil.setAdapter(new PagoMovilAdapter(response.body().getData(), new OnClickResponse<PagoMovilResponse>() {
+                    recycler_pago_movil.setAdapter(new PagoMovilAdapter(response.body().getData(), false, new OnClickResponse<PagoMovilResponse>() {
                         @Override
                         public void onClick(PagoMovilResponse object) {
                             ProgressDialog progressDialog = new ProgressDialog(PagoMovilActivity.this);

@@ -79,7 +79,7 @@ public class SelectPagoMovilDialog extends Dialog {
 
             @Override
             public void doCallBackResponse(ResponseClient<ArrayList<PagoMovilResponse>> response) {
-                pagoMovilAdapter = new PagoMovilAdapter(response.getData(), new OnClickResponse<PagoMovilResponse>() {
+                pagoMovilAdapter = new PagoMovilAdapter(response.getData(), true,new OnClickResponse<PagoMovilResponse>() {
                     @Override
                     public void onClick(PagoMovilResponse object) {
                         onClickResponse.onClick(object);

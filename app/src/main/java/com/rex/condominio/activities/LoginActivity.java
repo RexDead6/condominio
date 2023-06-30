@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void doCallBackResponse(ResponseClient<TokenResponse> response) {
                     SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, response.getData().getToken());
-                    SupportPreferences.IS_JEFE_FAMILIA  = response.getData().isJefe();
+                    SupportPreferences.getInstance(LoginActivity.this).savePreference(SupportPreferences.JEFE_FAMILIA_PREFERENCE, String.valueOf(response.getData().isJefe()));
                     TokenSupport token = new TokenSupport(LoginActivity.this);
                     Intent intent = new Intent(LoginActivity.this, ActivarUserActivity.class);
                     if (!token.getIdFam().equals("00")) {

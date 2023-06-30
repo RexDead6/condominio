@@ -41,7 +41,7 @@ public class SupportPreferences extends Application {
     private SharedPreferences mpPreferences;
     private final String ARCHIVE_PREFERENCE = "CONDOMINIO.PREFERENCES";
     public static String TOKEN_PREFERENCE = "CONDOMINIO.TOKEN";
-    public static boolean IS_JEFE_FAMILIA = false;
+    public static String JEFE_FAMILIA_PREFERENCE = "CONDOMINIO.JEFE_FAMILIA";
     public static String NOTIFICACION_PREFERENCE = "CONDOMINIO.NOTIFICACION";
     public static String FAMILIA_LIST_OBJECT = "CONDOMINIO.OBJECT.FAMILIA";
 
@@ -54,10 +54,6 @@ public class SupportPreferences extends Application {
 
     private SupportPreferences(Context context) {
         mpPreferences = context.getSharedPreferences(ARCHIVE_PREFERENCE, context.MODE_PRIVATE);
-    }
-
-    public void setIsJefeFamilia(boolean isJefeFamilia) {
-        this.IS_JEFE_FAMILIA = isJefeFamilia;
     }
 
     public void savePreference(String preference, String value) {
