@@ -23,20 +23,14 @@
                 android:src="@drawable/condominio" />
         </FrameLayout>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_below="@id/header_profile"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="-40dp"
-            android:layout_marginRight="30dp"
-            app:cardCornerRadius="20dp">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/accentColor"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_below="@id/header_profile"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="-40dp"
+                android:layout_marginRight="30dp">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btn_pago_movil"
@@ -65,14 +59,13 @@
                     app:backgroundTint="@color/primaryColor"
                     app:tint="@color/white" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/header_profile"
             android:layout_marginTop="40dp"
-            android:padding="10dp"
+            android:padding="30dp"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -93,7 +86,8 @@
                 style="@style/Widget.AppTheme.TextInputLayoutList"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre Completo">
+                android:hint="Nombre Completo"
+                android:layout_marginTop="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_nombre"
@@ -107,7 +101,8 @@
                 style="@style/Widget.AppTheme.TextInputLayoutList"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:hint="Rol">
+                android:hint="Rol"
+                android:layout_marginTop="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_rol"
