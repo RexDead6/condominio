@@ -111,35 +111,42 @@
                         tools:ignore="SpeakableTextPresentCheck" />
                 </LinearLayout>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <RelativeLayout
                     android:id="@+id/layout_preview"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_below="@id/title_img"
                     android:gravity="center"
                     android:visibility="gone">
 
-                    <at.markushi.ui.CircleButton
-                        android:id="@+id/btn_quit_img"
-                        android:layout_width="64dip"
-                        android:layout_height="64dip"
-                        android:onClick="btn_delete_phono"
-                        android:src="@drawable/ic_baseline_delete_24"
-                        android:tint="@color/white"
-                        app:cb_color="@color/primaryColor"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/img_preview"
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
+                        android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/btn_quit_img" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        app:layout_constraintTop_toBottomOf="@id/btn_quit_img"
+                        app:cardCornerRadius="20dp"
+                        android:layout_margin="20dp">
+
+                        <ImageView
+                            android:id="@+id/img_preview"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:src="@drawable/condominio"
+                            android:scaleType="centerCrop"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/btn_quit_img"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_baseline_delete_24"
+                        android:tint="@color/white"
+                        app:cb_color="@color/primaryColor"
+                        android:layout_alignParentRight="true"
+                        android:translationZ="100dp"/>
+                </RelativeLayout>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_enviar"

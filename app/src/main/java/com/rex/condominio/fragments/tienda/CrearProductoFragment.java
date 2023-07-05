@@ -2,6 +2,7 @@ package com.rex.condominio.fragments.tienda;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,11 +23,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.rex.condominio.R;
+import com.rex.condominio.dialogs.ProgressDialog;
 import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.ResponseClient;
@@ -47,9 +50,9 @@ import retrofit2.Call;
 public class CrearProductoFragment extends Fragment {
 
     private LinearLayout layout_images;
-    private ConstraintLayout layout_preview;
+    private RelativeLayout layout_preview;
     private TextInputEditText et_nombre;
-    private CircleButton btn_galery, btn_camera;
+    private CircleButton btn_galery, btn_camera, btn_quit_img;
     private ImageView img_preview;
     private MaterialButton btn_enviar;
     private File fileImg;
@@ -67,6 +70,7 @@ public class CrearProductoFragment extends Fragment {
         btn_galery = v.findViewById(R.id.btn_galery);
         btn_camera = v.findViewById(R.id.btn_camera);
         btn_enviar = v.findViewById(R.id.btn_enviar);
+        btn_quit_img = v.findViewById(R.id.btn_quit_img);
         img_preview = v.findViewById(R.id.img_preview);
         layout_images = v.findViewById(R.id.layout_images);
         layout_preview = v.findViewById(R.id.layout_preview);
@@ -89,6 +93,12 @@ public class CrearProductoFragment extends Fragment {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, TAKE_IMG);
             }
+        });
+
+        btn_quit_img.setOnClickListener(V -> {
+            fileImg = null;
+            layout_images.setVisibility(View.VISIBLE);
+            layout_preview.setVisibility(View.GONE);
         });
 
         btn_enviar.setOnClickListener(this::insert);
@@ -141,6 +151,15 @@ public class CrearProductoFragment extends Fragment {
     public void insert(View view){
         if (et_nombre.getText().toString().isEmpty()){
             et_nombre.setError("Ingrese el nombre del producto");
+            return;
+        }
+
+        if (fileImg == null) {
+            new AlertDialog.Builder(getContext())
+                    .setMessage("Debe incluir una imagen del producto")
+                    .setPositiveButton("Aceptar", (d,w) -> {})
+                    .create().show();
+            return;
         }
 
         MultipartBody.Builder builder = new MultipartBody.Builder();
@@ -153,10 +172,19 @@ public class CrearProductoFragment extends Fragment {
                 SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE),
                 builder.build().parts()
         );
+
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.show();
+
         call.enqueue(new ResponseCallback<ResponseClient<Object>>() {
             @Override
             public Context returnContext() {
                 return getContext();
+            }
+
+            @Override
+            public void onFinish() {
+                progressDialog.dismiss();
             }
 
             @Override
