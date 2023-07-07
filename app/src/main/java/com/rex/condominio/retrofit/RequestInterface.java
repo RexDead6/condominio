@@ -33,6 +33,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -74,6 +75,12 @@ public interface RequestInterface {
     Call<ResponseClient<TokenResponse>> relacionFamiliar(
             @Header("Authorization") String token,
             @Body RelacionFamiliarRequest relacionFamiliarRequest
+    );
+
+    @DELETE("removeUserFam/{id}")
+    Call<ResponseClient<Object>> removerUsuarioFamilia(
+            @Header("Authorization") String token,
+            @Path("id") String idUsu
     );
 
     @GET("familia")

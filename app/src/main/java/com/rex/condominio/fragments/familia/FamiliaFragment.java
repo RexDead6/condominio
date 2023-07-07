@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.button.MaterialButton;
@@ -74,6 +75,12 @@ public class FamiliaFragment extends Fragment {
             dialog.show();
         });
 
+        onCallFamilia();
+
+        return v;
+    }
+
+    private void onCallFamilia() {
         Call<ResponseClient<FamiliaResponse>> call = RetrofitClient.getInstance().getRequestInterface().getFamilia(
                 SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
         );
@@ -100,12 +107,20 @@ public class FamiliaFragment extends Fragment {
                 animationView.setVisibility(View.GONE);
                 recycler_familia.setVisibility(View.VISIBLE);
 
-                recycler_familia.setAdapter(new FamiliaAdapter(getContext(), response.getData().getUsers(), response.getData().getJefeFamilia().getIdUsu()));
+                recycler_familia.setAdapter(new FamiliaAdapter(getContext(), response.getData().getUsers(), new ResponseCallback<ResponseClient<Object>>() {
+                    @Override
+                    public Context returnContext() {
+                        return getContext();
+                    }
+
+                    @Override
+                    public void doCallBackResponse(ResponseClient<Object> response) {
+                        Toast.makeText(getContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        onCallFamilia();
+                    }
+                }));
                 recycler_familia.setLayoutManager(new LinearLayoutManager(getContext()));
-                return;
             }
         });
-
-        return v;
     }
 }
