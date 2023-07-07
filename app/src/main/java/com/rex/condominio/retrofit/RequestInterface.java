@@ -1,6 +1,7 @@
 package com.rex.condominio.retrofit;
 
 import com.rex.condominio.retrofit.request.CompraRequest;
+import com.rex.condominio.retrofit.request.EditJefeRequest;
 import com.rex.condominio.retrofit.request.FamiliaRequest;
 import com.rex.condominio.retrofit.request.LoginRequest;
 import com.rex.condominio.retrofit.request.PagarServicioRequest;
@@ -81,6 +82,12 @@ public interface RequestInterface {
     Call<ResponseClient<Object>> removerUsuarioFamilia(
             @Header("Authorization") String token,
             @Path("id") String idUsu
+    );
+
+    @PATCH("editJefeFam")
+    Call<ResponseClient<Object>> editJefeFam(
+            @Header("Authorization") String token,
+            @Body EditJefeRequest editJefeRequest
     );
 
     @GET("familia")

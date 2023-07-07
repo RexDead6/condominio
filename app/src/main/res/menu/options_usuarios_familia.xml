@@ -4,4 +4,9 @@
         android:id="@+id/option_eliminar"
         android:title="Eliminar de familia"
         />
+
+    <item
+        android:id="@+id/option_jefe"
+        android:title="Delegar Jefe de Familia"
+        />
 </menu>

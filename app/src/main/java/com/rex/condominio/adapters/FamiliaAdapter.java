@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.rex.condominio.R;
+import com.rex.condominio.dialogs.ConfirmYesNoDialog;
 import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
+import com.rex.condominio.retrofit.request.EditJefeRequest;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.UsuarioResponse;
 import com.rex.condominio.utils.SupportPreferences;
@@ -63,11 +65,29 @@ public class FamiliaAdapter extends RecyclerView.Adapter<FamiliaAdapter.ViewHold
                 popupMenu.setOnMenuItemClickListener(menuItem -> {
                     switch (menuItem.getItemId()){
                         case R.id.option_eliminar:
-                            Call<ResponseClient<Object>> call = RetrofitClient.getInstance().getRequestInterface().removerUsuarioFamilia(
-                                    SupportPreferences.getInstance(context).getPreference(SupportPreferences.TOKEN_PREFERENCE),
-                                    data.get(position).getIdUsu()+""
-                            );
-                            call.enqueue(responseCallback);
+                            new ConfirmYesNoDialog(context)
+                                    .setMessage("¿Esta seguro que desea eliminar de su familia a "+data.get(position).getNomUsu()+" "+data.get(position).getApeUsu()+"?")
+                                    .setPositiveButtom(dialog -> {
+                                        Call<ResponseClient<Object>> call = RetrofitClient.getInstance().getRequestInterface().removerUsuarioFamilia(
+                                                SupportPreferences.getInstance(context).getPreference(SupportPreferences.TOKEN_PREFERENCE),
+                                                data.get(position).getIdUsu()+""
+                                        );
+                                        call.enqueue(responseCallback);
+                                    }).show();
+                            return true;
+                        case R.id.option_jefe:
+                            new ConfirmYesNoDialog(context)
+                                    .setMessage("¿Esta seguro que desea asignar como jefe de familia a "+data.get(position).getNomUsu()+" "+data.get(position).getApeUsu()+"?")
+                                    .setPositiveButtom(dialog -> {
+                                        Call<ResponseClient<Object>> call1 = RetrofitClient.getInstance().getRequestInterface().editJefeFam(
+                                                SupportPreferences.getInstance(context).getPreference(SupportPreferences.TOKEN_PREFERENCE),
+                                                new EditJefeRequest(
+                                                        data.get(position).getIdUsu(),
+                                                        Integer.parseInt(new TokenSupport(context).getIdFam())
+                                                )
+                                        );
+                                        call1.enqueue(responseCallback);
+                                    }).show();
                             return true;
                         default:
                             return false;
