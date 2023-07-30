@@ -11,6 +11,7 @@ import com.rex.condominio.retrofit.request.RelacionFamiliarRequest;
 import com.rex.condominio.retrofit.request.ServicioRequest;
 import com.rex.condominio.retrofit.request.UsuarioRequest;
 import com.rex.condominio.retrofit.request.VentaRequest;
+import com.rex.condominio.retrofit.response.AjusteResponse;
 import com.rex.condominio.retrofit.response.AnuncioResponse;
 import com.rex.condominio.retrofit.response.BancosResponse;
 import com.rex.condominio.retrofit.response.CompraResponse;
@@ -228,4 +229,9 @@ public interface RequestInterface {
 
     @GET("notificaciones")
     Call<ResponseClient<PushMessageResponse>> getNotificaciones(@Header("Authorization") String token);
+
+    @GET("ajuste/{ajuste}")
+    Call<ResponseClient<AjusteResponse>> getAjuste(
+            @Path("ajuste") String ajuste
+    );
 }

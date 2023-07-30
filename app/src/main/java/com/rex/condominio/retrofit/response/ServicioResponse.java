@@ -9,8 +9,9 @@ public class ServicioResponse {
     private int statusSer;
     private String fechaInicioServicio;
     private int mesesPorPagar;
+    private int divisa;
 
-    public ServicioResponse(int idSer, PagoMovilResponse pagoMovil, String descSer, int isMensualSer, float montoSer, int statusSer, String fechaInicioServicio, int mesesPorPagar) {
+    public ServicioResponse(int idSer, PagoMovilResponse pagoMovil, String descSer, int isMensualSer, float montoSer, int statusSer, String fechaInicioServicio, int mesesPorPagar, int divisa) {
         this.idSer = idSer;
         PagoMovil = pagoMovil;
         this.descSer = descSer;
@@ -19,6 +20,7 @@ public class ServicioResponse {
         this.statusSer = statusSer;
         this.fechaInicioServicio = fechaInicioServicio;
         this.mesesPorPagar = mesesPorPagar;
+        this.divisa = divisa;
     }
 
     public int getIdSer() {
@@ -83,5 +85,13 @@ public class ServicioResponse {
 
     public void setMesesPorPagar(int mesesPorPagar) {
         this.mesesPorPagar = mesesPorPagar;
+    }
+
+    public int getDivisa() {
+        return divisa;
+    }
+
+    public void setDivisa(int divisa) {
+        this.divisa = divisa;
     }
 }

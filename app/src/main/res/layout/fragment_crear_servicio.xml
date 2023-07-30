@@ -74,11 +74,18 @@
                         android:inputType="textAutoComplete|textAutoCorrect" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seguimiento de pago"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
+
                 <RadioGroup
                     android:id="@+id/radio_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatRadioButton
@@ -96,18 +103,74 @@
                         android:buttonTint="@color/primaryColor"/>
                 </RadioGroup>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="fill_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.AppTheme.TextInputLayoutList"
-                    android:hint="Monto ">
+                    android:text="Moneda de pago"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"/>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_monto"
+                <RadioGroup
+                    android:id="@+id/radio_group_divisa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radio_bs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bolivares (Bs)"
+                        android:buttonTint="@color/primaryColor" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radio_divisa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Divisa ($)"
+                        android:buttonTint="@color/primaryColor"/>
+                </RadioGroup>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.AppTheme.TextInputLayoutList"
+                        android:hint="Monto "
+                        android:layout_marginRight="5dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_monto"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="numberDecimal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/layout_input"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="numberDecimal" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@style/Widget.AppTheme.TextInputLayoutList"
+                        android:hint="Monto en Bs"
+                        android:layout_marginLeft="5dp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/et_monto_bs"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:inputType="numberDecimal"
+                            android:focusable="false"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.AppTheme.TextInputLayoutList"

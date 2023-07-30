@@ -35,7 +35,7 @@ import java.util.List;
 
 public class SupportPreferences extends Application {
 
-    public static final String BASE_URL = "http://192.168.1.143:8000/";
+    public static final String BASE_URL = "http://192.168.1.128:8000/";
     public static final String BASE_URL_ASSETS = BASE_URL+"src/assets/";
     private static SupportPreferences instance;
     private SharedPreferences mpPreferences;
@@ -104,7 +104,7 @@ public class SupportPreferences extends Application {
 
     public static String formatCurrency(float currency){
         NumberFormat tf = NumberFormat.getCurrencyInstance();
-        return tf.format(currency).replace("$", "") + " Bs";
+        return tf.format(currency).replace("$", "");
     }
 
     public static String formatDate(String date){

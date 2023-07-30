@@ -18,10 +18,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rex.condominio.R;
 import com.rex.condominio.activities.servicios.FacturasActivity;
 import com.rex.condominio.activities.servicios.ServicioActivity;
+import com.rex.condominio.adapters.ServiciosAdminAdapter;
 import com.rex.condominio.adapters.ServiciosPorPagarAdapter;
+import com.rex.condominio.fragments.servicios.AdministrarServiciosFragment;
 import com.rex.condominio.fragments.servicios.PagarServicioFragment;
 import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
+import com.rex.condominio.retrofit.response.AjusteResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.utils.OnClickResponse;
@@ -71,10 +74,33 @@ public class ServiciosFragment extends Fragment {
             startActivity(intent, options.toBundle());
         });
 
+        callData();
+
+        return v;
+    }
+
+    private void callData() {
         Call<ResponseClient<ArrayList<ServicioResponse>>> call = RetrofitClient.getInstance().getRequestInterface().getServicio(
                 SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
         );
         call.enqueue(new ResponseCallback<ResponseClient<ArrayList<ServicioResponse>>>() {
+            @Override
+            public Context returnContext() {
+                return getContext();
+            }
+
+            @Override
+            public void doCallBackResponse(ResponseClient<ArrayList<ServicioResponse>> response) {
+                callTasa(response.getData());
+            }
+        });
+    }
+
+    private void callTasa(ArrayList<ServicioResponse> data){
+        Call<ResponseClient<AjusteResponse>> callDivisa = RetrofitClient.getInstance().getRequestInterface().getAjuste(
+                "DIVISA"
+        );
+        callDivisa.enqueue(new ResponseCallback<ResponseClient<AjusteResponse>>() {
             @Override
             public Context returnContext() {
                 return getContext();
@@ -87,8 +113,8 @@ public class ServiciosFragment extends Fragment {
             }
 
             @Override
-            public void doCallBackResponse(ResponseClient<ArrayList<ServicioResponse>> response) {
-                recycler_servicios.setAdapter(new ServiciosPorPagarAdapter(response.getData(), new OnClickResponse<ServicioResponse>() {
+            public void doCallBackResponse(ResponseClient<AjusteResponse> response) {
+                recycler_servicios.setAdapter(new ServiciosPorPagarAdapter(Float.parseFloat(response.getData().getValue()),data, new OnClickResponse<ServicioResponse>() {
                     @Override
                     public void onClick(ServicioResponse object) {
                         SupportPreferences.loadFrament(new PagarServicioFragment(object), getActivity().getSupportFragmentManager().beginTransaction(), true, R.id.fragment_container);
@@ -97,7 +123,5 @@ public class ServiciosFragment extends Fragment {
                 recycler_servicios.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
-
-        return v;
     }
 }

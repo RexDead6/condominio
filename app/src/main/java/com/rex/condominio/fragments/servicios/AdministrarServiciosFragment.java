@@ -16,6 +16,7 @@ import com.rex.condominio.R;
 import com.rex.condominio.adapters.ServiciosAdminAdapter;
 import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
+import com.rex.condominio.retrofit.response.AjusteResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.utils.SupportPreferences;
@@ -58,20 +59,41 @@ public class AdministrarServiciosFragment extends Fragment {
             }
 
             @Override
-            public void onFinish() {
-                animationView.setVisibility(View.GONE);
-            }
-
-            @Override
             public void doCallBackResponse(ResponseClient<ArrayList<ServicioResponse>> response) {
-                recycler_servicio.setAdapter(new ServiciosAdminAdapter(AdministrarServiciosFragment.this, response.getData()));
-                recycler_servicio.setLayoutManager(new LinearLayoutManager(getContext()));
-                recycler_servicio.setVisibility(View.VISIBLE);
+                onCallTasa(response.getData());
             }
 
             @Override
             public void doCallBackErrorResponse(ResponseClient<Object> response) {
                 view_not_found.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void onCallTasa(ArrayList<ServicioResponse> servicios){
+        Call<ResponseClient<AjusteResponse>> callDivisa = RetrofitClient.getInstance().getRequestInterface().getAjuste(
+                "DIVISA"
+        );
+        callDivisa.enqueue(new ResponseCallback<ResponseClient<AjusteResponse>>() {
+            @Override
+            public Context returnContext() {
+                return getContext();
+            }
+
+            @Override
+            public void onFinish() {
+                animationView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void doCallBackResponse(ResponseClient<AjusteResponse> response) {
+                recycler_servicio.setAdapter(new ServiciosAdminAdapter(
+                        AdministrarServiciosFragment.this,
+                        servicios,
+                        Float.parseFloat(response.getData().getValue())
+                ));
+                recycler_servicio.setLayoutManager(new LinearLayoutManager(getContext()));
+                recycler_servicio.setVisibility(View.VISIBLE);
             }
         });
     }

@@ -24,10 +24,12 @@ public class ServiciosPorPagarAdapter extends RecyclerView.Adapter<ServiciosPorP
     private Context context;
     private ArrayList<ServicioResponse> data;
     private OnClickResponse<ServicioResponse> onClickResponse;
+    private float tasa;
 
-    public ServiciosPorPagarAdapter(ArrayList<ServicioResponse> data, OnClickResponse<ServicioResponse> onClickResponse) {
+    public ServiciosPorPagarAdapter(float tasa, ArrayList<ServicioResponse> data, OnClickResponse<ServicioResponse> onClickResponse) {
         this.data = data;
         this.onClickResponse = onClickResponse;
+        this.tasa = tasa;
     }
 
     @NonNull
@@ -40,9 +42,15 @@ public class ServiciosPorPagarAdapter extends RecyclerView.Adapter<ServiciosPorP
     @Override
     public void onBindViewHolder(@NonNull ServiciosPorPagarAdapter.ViewHolder holder, int position) {
         holder.tv_desc.setText(data.get(position).getDescSer());
-        holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer()));
+        if (data.get(position).getDivisa() == 0){
+            holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer())+" Bs");
+            holder.tv_total.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer() * data.get(position).getMesesPorPagar())+" Bs");
+        } else {
+            holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer())+" $");
+            float totalDolar = data.get(position).getMontoSer() * data.get(position).getMesesPorPagar();
+            holder.tv_total.setText(SupportPreferences.formatCurrency(totalDolar)+" $ = "+SupportPreferences.formatCurrency(totalDolar * tasa) + " Bs");
+        }
         holder.tv_meses.setText(data.get(position).getIsMensualSer() == 0 ? "Pago unico" : data.get(position).getMesesPorPagar()+"");
-        holder.tv_total.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer() * data.get(position).getMesesPorPagar()));
         holder.btn_pagar.setOnClickListener(V-> onClickResponse.onClick(data.get(position)));
         holder.btn_pagar.setVisibility(SupportPreferences.getInstance(context).getPreference(SupportPreferences.JEFE_FAMILIA_PREFERENCE).equals("true") ? View.VISIBLE : View.GONE);
     }

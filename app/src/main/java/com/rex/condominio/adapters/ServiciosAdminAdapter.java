@@ -25,11 +25,13 @@ public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAd
     private Fragment fragment;
     private ArrayList<ServicioResponse> data;
     private ArrayList<ServicioResponse> dataFiltered;
+    private float tasa;
 
-    public ServiciosAdminAdapter(Fragment fragment, ArrayList<ServicioResponse> data) {
+    public ServiciosAdminAdapter(Fragment fragment, ArrayList<ServicioResponse> data, float tasa) {
         this.fragment = fragment;
         this.data = data;
         this.dataFiltered = data;
+        this.tasa = tasa;
     }
 
     @NonNull
@@ -42,7 +44,11 @@ public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAd
     @Override
     public void onBindViewHolder(@NonNull ServiciosAdminAdapter.ViewHolder holder, int position) {
         holder.tv_desc.setText(data.get(position).getDescSer());
-        holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer()));
+
+        if (data.get(position).getDivisa() == 0)
+            holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer())+" Bs");
+        else
+            holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer())+" $");
         holder.tv_estado.setText((data.get(position).getStatusSer() == 1) ? "Activo" : "Inactivo");
         holder.tv_tipo.setText((data.get(position).getIsMensualSer() == 1) ? "Mensual" : "Pago unico");
         holder.tv_fecha.setText(data.get(position).getFechaInicioServicio());

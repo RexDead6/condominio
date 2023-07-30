@@ -5,12 +5,14 @@ public class ServicioRequest {
     private String descSer;
     private int isMensualSer;
     private double montoSer;
+    private int divisa;
 
-    public ServicioRequest(int idPmv, String descSer, int isMensualSer, double montoSer) {
+    public ServicioRequest(int idPmv, String descSer, int isMensualSer, double montoSer, int divisa) {
         this.idPmv = idPmv;
         this.descSer = descSer;
         this.isMensualSer = isMensualSer;
         this.montoSer = montoSer;
+        this.divisa = divisa;
     }
 
     public int getIdPmv() {
@@ -43,5 +45,13 @@ public class ServicioRequest {
 
     public void setMontoSer(double montoSer) {
         this.montoSer = montoSer;
+    }
+
+    public int getDivisa() {
+        return divisa;
+    }
+
+    public void setDivisa(int divisa) {
+        this.divisa = divisa;
     }
 }
