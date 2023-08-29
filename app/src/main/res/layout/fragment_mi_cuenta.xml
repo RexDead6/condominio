@@ -10,10 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/header_profile"
             android:layout_width="match_parent"
             android:layout_height="270dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_editar_foto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="Editar"/>
 
             <ImageView
                 android:id="@+id/image_profile"
@@ -21,7 +29,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/condominio" />
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,6 +39,16 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="-40dp"
                 android:layout_marginRight="30dp">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btn_admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/pago_movil"
+                    android:transitionName="pagoMovilTrans"
+                    app:backgroundTint="@color/primaryColor"
+                    app:tint="@color/white"
+                    android:layout_marginRight="10dp"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/btn_pago_movil"

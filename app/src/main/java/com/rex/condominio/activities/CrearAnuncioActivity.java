@@ -156,31 +156,6 @@ public class CrearAnuncioActivity extends AppCompatActivity {
         return true;
     }
 
-    Callback<ResponseClient<Object>> callback = new Callback<ResponseClient<Object>>() {
-        @Override
-        public void onResponse(Call<ResponseClient<Object>> call, Response<ResponseClient<Object>> response) {
-            progress.dismiss();
-            if (response.code() == 201){
-                Toast.makeText(CrearAnuncioActivity.this, "Anuncio Publicado exitosamente", Toast.LENGTH_SHORT).show();
-                onBackPressed();
-                return;
-            }
-
-            ResponseClient<TokenResponse> errorResponse = new Gson().fromJson(response.errorBody().charStream(), ResponseClient.class);
-
-            new AlertDialog.Builder(CrearAnuncioActivity.this)
-                    .setMessage(errorResponse.getMessage())
-                    .setPositiveButton("Aceptar", (d, v) -> d.dismiss())
-                    .create().show();
-        }
-
-        @Override
-        public void onFailure(Call<ResponseClient<Object>> call, Throwable t) {
-            progress.dismiss();
-            Log.e("insertAnuncio", t.toString());
-        }
-    };
-
     public void btn_image(View v){
         Intent intent = new Intent();
         intent.setType("image/*");

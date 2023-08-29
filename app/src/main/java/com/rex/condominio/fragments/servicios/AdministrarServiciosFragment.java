@@ -50,7 +50,8 @@ public class AdministrarServiciosFragment extends Fragment {
 
     private void onCallData(){
         Call<ResponseClient<ArrayList<ServicioResponse>>> call = RetrofitClient.getInstance().getRequestInterface().getAdminServicio(
-                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
+                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE),
+                SupportPreferences.getInstance(getContext()).getPreferenceInt(SupportPreferences.COMUNIDAD_ACTUAL_PREFERENCE)+""
         );
         call.enqueue(new ResponseCallback<ResponseClient<ArrayList<ServicioResponse>>>() {
             @Override

@@ -40,6 +40,7 @@ public class ServiciosFragment extends Fragment {
     private RecyclerView recycler_servicios;
     private LottieAnimationView animationView;
     private FloatingActionButton floatingButtom, btn_open_facturas;
+    private View view_not_found;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,10 +48,12 @@ public class ServiciosFragment extends Fragment {
 
         recycler_servicios = v.findViewById(R.id.recycler_servicios);
         animationView = v.findViewById(R.id.animationView);
+        view_not_found = v.findViewById(R.id.view_not_found);
         floatingButtom = v.findViewById(R.id.floatingButtom);
         btn_open_facturas = v.findViewById(R.id.btn_open_facturas);
 
-        if (Integer.parseInt(new TokenSupport(getContext()).getIdRol()) > 1){
+        String isAdmin = SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.ADMIN_COMUNIDAD_PREFERENCE);
+        if (isAdmin.equals("false")){
             floatingButtom.setVisibility(View.GONE);
         }
 
@@ -81,7 +84,8 @@ public class ServiciosFragment extends Fragment {
 
     private void callData() {
         Call<ResponseClient<ArrayList<ServicioResponse>>> call = RetrofitClient.getInstance().getRequestInterface().getServicio(
-                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
+                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE),
+                SupportPreferences.getInstance(getContext()).getPreferenceInt(SupportPreferences.COMUNIDAD_ACTUAL_PREFERENCE)+""
         );
         call.enqueue(new ResponseCallback<ResponseClient<ArrayList<ServicioResponse>>>() {
             @Override
@@ -90,8 +94,18 @@ public class ServiciosFragment extends Fragment {
             }
 
             @Override
+            public void onFinish() {
+                animationView.setVisibility(View.GONE);
+            }
+
+            @Override
             public void doCallBackResponse(ResponseClient<ArrayList<ServicioResponse>> response) {
                 callTasa(response.getData());
+            }
+
+            @Override
+            public void doCallBackErrorResponse(ResponseClient<Object> response) {
+                view_not_found.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -107,13 +121,8 @@ public class ServiciosFragment extends Fragment {
             }
 
             @Override
-            public void onFinish() {
-                animationView.setVisibility(View.GONE);
-                recycler_servicios.setVisibility(View.VISIBLE);
-            }
-
-            @Override
             public void doCallBackResponse(ResponseClient<AjusteResponse> response) {
+                recycler_servicios.setVisibility(View.VISIBLE);
                 recycler_servicios.setAdapter(new ServiciosPorPagarAdapter(Float.parseFloat(response.getData().getValue()),data, new OnClickResponse<ServicioResponse>() {
                     @Override
                     public void onClick(ServicioResponse object) {

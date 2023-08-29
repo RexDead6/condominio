@@ -6,13 +6,15 @@ public class ServicioRequest {
     private int isMensualSer;
     private double montoSer;
     private int divisa;
+    private int idUrb;
 
-    public ServicioRequest(int idPmv, String descSer, int isMensualSer, double montoSer, int divisa) {
+    public ServicioRequest(int idPmv, String descSer, int isMensualSer, double montoSer, int divisa, int idUrb) {
         this.idPmv = idPmv;
         this.descSer = descSer;
         this.isMensualSer = isMensualSer;
         this.montoSer = montoSer;
         this.divisa = divisa;
+        this.idUrb = idUrb;
     }
 
     public int getIdPmv() {
@@ -53,5 +55,13 @@ public class ServicioRequest {
 
     public void setDivisa(int divisa) {
         this.divisa = divisa;
+    }
+
+    public int getIdUrb() {
+        return idUrb;
+    }
+
+    public void setIdUrb(int idUrb) {
+        this.idUrb = idUrb;
     }
 }

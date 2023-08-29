@@ -35,15 +35,17 @@ import java.util.List;
 
 public class SupportPreferences extends Application {
 
-    public static final String BASE_URL = "http://192.168.1.128:8000/";
+    public static final String BASE_URL = "http://192.168.1.149:8000/";
     public static final String BASE_URL_ASSETS = BASE_URL+"src/assets/";
     private static SupportPreferences instance;
     private SharedPreferences mpPreferences;
     private final String ARCHIVE_PREFERENCE = "CONDOMINIO.PREFERENCES";
     public static String TOKEN_PREFERENCE = "CONDOMINIO.TOKEN";
     public static String JEFE_FAMILIA_PREFERENCE = "CONDOMINIO.JEFE_FAMILIA";
+    public static String COMUNIDAD_ACTUAL_PREFERENCE = "CONDOMINIO.COMUNIDAD_ACTUAL";
     public static String NOTIFICACION_PREFERENCE = "CONDOMINIO.NOTIFICACION";
     public static String FAMILIA_LIST_OBJECT = "CONDOMINIO.OBJECT.FAMILIA";
+    public static String ADMIN_COMUNIDAD_PREFERENCE = "CONDOMINIO.ADMIN_COMUNIDAD";
 
     public static SupportPreferences getInstance(Context context) {
         if (instance == null) {

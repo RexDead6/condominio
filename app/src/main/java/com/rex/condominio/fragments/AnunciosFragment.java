@@ -61,7 +61,7 @@ public class AnunciosFragment extends Fragment {
             startActivity(intent, options.toBundle());
         });
 
-        if (!new TokenSupport(getContext()).getIdRol().equals("1")){
+        if (Integer.parseInt(new TokenSupport(getContext()).getIdRol()) > 2){
             floatingButtom.setVisibility(View.GONE);
         }
 

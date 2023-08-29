@@ -142,7 +142,8 @@ public class CrearServicioFragment extends Fragment {
                     et_descripcion.getText().toString().trim(),
                     isMensual,
                     Double.parseDouble(et_monto.getText().toString()),
-                    divisa
+                    divisa,
+                    SupportPreferences.getInstance(getContext()).getPreferenceInt(SupportPreferences.COMUNIDAD_ACTUAL_PREFERENCE)
             );
 
             Call<ResponseClient<Object>> call = RetrofitClient.getInstance().getRequestInterface().insertServicio(

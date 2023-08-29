@@ -15,6 +15,7 @@ import com.rex.condominio.retrofit.response.AjusteResponse;
 import com.rex.condominio.retrofit.response.AnuncioResponse;
 import com.rex.condominio.retrofit.response.BancosResponse;
 import com.rex.condominio.retrofit.response.CompraResponse;
+import com.rex.condominio.retrofit.response.ComunidadResponse;
 import com.rex.condominio.retrofit.response.FacturaByStatusResponse;
 import com.rex.condominio.retrofit.response.FacturaResponse;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
@@ -66,6 +67,13 @@ public interface RequestInterface {
 
     @GET("usuarioInactivo")
     Call<ResponseClient<ArrayList<UsuarioResponse>>> getInactivos();
+
+    @Multipart
+    @POST("usuario/image")
+    Call<ResponseClient<Object>> updateImageUser(
+            @Header("Authorization") String token,
+            @Part List<MultipartBody.Part> formData
+    );
 
     @POST("familia")
     Call<ResponseClient<Object>> insertFamilia(
@@ -162,11 +170,17 @@ public interface RequestInterface {
             @Path("status") String status
     );
 
-    @GET("servicio")
-    Call<ResponseClient<ArrayList<ServicioResponse>>> getServicio(@Header("Authorization") String token);
+    @GET("servicio/{idUrb}")
+    Call<ResponseClient<ArrayList<ServicioResponse>>> getServicio(
+            @Header("Authorization") String token,
+            @Path("idUrb") String idUrb
+    );
 
-    @GET("servicioAdmin")
-    Call<ResponseClient<ArrayList<ServicioResponse>>> getAdminServicio(@Header("Authorization") String token);
+    @GET("servicioAdmin/{idUrb}")
+    Call<ResponseClient<ArrayList<ServicioResponse>>> getAdminServicio(
+            @Header("Authorization") String token,
+            @Path("idUrb") String idUrb
+    );
 
     @Multipart
     @POST("producto")
@@ -234,4 +248,7 @@ public interface RequestInterface {
     Call<ResponseClient<AjusteResponse>> getAjuste(
             @Path("ajuste") String ajuste
     );
+
+    @GET("comunidad/usuario")
+    Call<ResponseClient<ArrayList<ComunidadResponse>>> getComunidadesUsuario(@Header("Authorization") String token);
 }

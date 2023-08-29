@@ -51,7 +51,7 @@ public class FamiliaActivity extends AppCompatActivity {
 
         SupportPreferences.loadFrament(new FamiliaFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.container_familia);
 
-        if (!new TokenSupport(this).getIdRol().equals("1")){
+        if (Integer.parseInt(new TokenSupport(this).getIdRol()) > 2){
             btn_familias.setVisibility(View.GONE);
         }
     }
