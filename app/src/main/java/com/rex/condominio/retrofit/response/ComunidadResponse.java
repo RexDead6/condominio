@@ -8,6 +8,7 @@ public class ComunidadResponse {
     private String direccion;
     private int status;
     private boolean isAdmin;
+    private int totalFamilias;
 
 
     // Getter Methods
@@ -32,6 +33,10 @@ public class ComunidadResponse {
         return isAdmin;
     }
 
+    public int getTotalFamilias() {
+        return totalFamilias;
+    }
+
     // Setter Methods
 
     public void setIdUrb( int idUrb ) {
@@ -52,6 +57,10 @@ public class ComunidadResponse {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public void setTotalFamilias(int totalFamilias) {
+        this.totalFamilias = totalFamilias;
     }
 
     @NonNull

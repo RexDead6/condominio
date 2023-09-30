@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrar una nueva comunidad"
+            android:textColor="@color/primaryColor"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.AppTheme.TextInputLayoutList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nombre de la comunidad">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_nombre"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.AppTheme.TextInputLayoutList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Direccion de la comunidad"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_direccion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textAutoComplete" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Registrar"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

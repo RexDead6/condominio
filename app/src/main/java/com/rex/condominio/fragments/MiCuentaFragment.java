@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.rex.condominio.R;
+import com.rex.condominio.activities.AdminActivity;
 import com.rex.condominio.activities.FamiliaActivity;
 import com.rex.condominio.activities.LoginActivity;
 import com.rex.condominio.activities.PagoMovilActivity;
@@ -63,11 +64,12 @@ public class MiCuentaFragment extends Fragment {
         callData();
 
         btn_admin = v.findViewById(R.id.btn_admin);
-        if (Integer.parseInt(new TokenSupport(getContext()).getIdRol()) > 2){
+        if (Integer.parseInt(new TokenSupport(getContext()).getIdRol()) > 1){
             btn_admin.setVisibility(View.GONE);
         }
         btn_admin.setOnClickListener(V -> {
-
+            Intent intent = new Intent(getActivity(), AdminActivity.class);
+            startActivity(intent);
         });
 
         btn_editar_foto = v.findViewById(R.id.btn_editar_foto);

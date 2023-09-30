@@ -29,11 +29,13 @@ public class CrearFamiliaDialog extends Dialog {
     private TextInputEditText et_descripcion, et_direccion, et_usuario;
     private MaterialButton btn_guardar;
     private int idJefeUsu;
-    private ListaFamiliaFragment fragment;
+    private int idUrb;
+    private OnClickResponse OnResponse;
 
-    public CrearFamiliaDialog(@NonNull Context context, ListaFamiliaFragment fragment) {
+    public CrearFamiliaDialog(@NonNull Context context, int idUrb, OnClickResponse response) {
         super(context);
-        this.fragment = fragment;
+        this.OnResponse = response;
+        this.idUrb = idUrb;
         onCreate();
     }
 
@@ -68,7 +70,8 @@ public class CrearFamiliaDialog extends Dialog {
         FamiliaRequest familiaRequest = new FamiliaRequest(
                 idJefeUsu,
                 et_descripcion.getText().toString().trim(),
-                et_direccion.getText().toString().trim()
+                et_direccion.getText().toString().trim(),
+                idUrb
         );
 
         ProgressDialog progressDialog = new ProgressDialog(getContext());
@@ -95,7 +98,7 @@ public class CrearFamiliaDialog extends Dialog {
                         .setMessage("Familia registrada con exito")
                         .setPositiveButton("Aceptar", (d, v) -> {
                             d.dismiss();
-                            fragment.reloadView();
+                            OnResponse.onClick(null);
                         })
                         .create().show();
                 dismiss();

@@ -7,16 +7,16 @@
 
     <item
         android:id="@+id/option_familias"
-        android:title="familias"
+        android:title="Familias"
         android:icon="@drawable/ic_baseline_family_restroom_24"/>
 
     <item
-        android:id="@+id/option_comunidwades"
-        android:title="Comunidades"
-        android:icon="@drawable/baseline_maps_home_work_24"/>
+        android:id="@+id/option_usuarios"
+        android:title="Usuarios"
+        android:icon="@drawable/ic_baseline_account_circle_24"/>
 
     <item
-        android:id="@+id/optionw_comuwnidades"
-        android:title="Comunidades"
-        android:icon="@drawable/baseline_maps_home_work_24"/>
+        android:id="@+id/option_auditoria"
+        android:title="Auditoria"
+        android:icon="@drawable/baseline_article_24"/>
 </menu>

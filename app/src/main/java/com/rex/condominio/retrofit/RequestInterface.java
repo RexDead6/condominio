@@ -105,6 +105,9 @@ public interface RequestInterface {
     @GET("familias")
     Call<ResponseClient<ArrayList<FamiliaResponse>>> getAllFamilia(@Header("Authorization") String token);
 
+    @GET("familiasComunidad/{idUrb}")
+    Call<ResponseClient<ArrayList<FamiliaResponse>>> getFamByComunidad(@Path("idUrb") String idUrb);
+
     @Multipart
     @POST("anuncios")
     Call<ResponseClient<Object>> insertAnuncio(
@@ -249,6 +252,15 @@ public interface RequestInterface {
             @Path("ajuste") String ajuste
     );
 
+    @GET("comunidad")
+    Call<ResponseClient<ArrayList<ComunidadResponse>>> getComunidadesAdmin();
+
     @GET("comunidad/usuario")
     Call<ResponseClient<ArrayList<ComunidadResponse>>> getComunidadesUsuario(@Header("Authorization") String token);
+
+    @POST("comunidad")
+    Call<ResponseClient<Object>> insertComunidad(
+            @Header("Authorization") String token,
+            @Body ComunidadResponse comunidad
+    );
 }

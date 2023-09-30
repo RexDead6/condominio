@@ -23,6 +23,7 @@ import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.FamiliaResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
+import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
 import java.util.ArrayList;
@@ -54,7 +55,12 @@ public class ListaFamiliaFragment extends Fragment {
         recycler_familias.setLayoutManager(new LinearLayoutManager(getContext()));
 
         btn_crear_familia.setOnClickListener(V -> {
-            CrearFamiliaDialog dialog = new CrearFamiliaDialog(getContext(), ListaFamiliaFragment.this);
+            CrearFamiliaDialog dialog = new CrearFamiliaDialog(getContext(), SupportPreferences.getInstance(getContext()).getPreferenceInt(SupportPreferences.COMUNIDAD_ACTUAL_PREFERENCE) ,new OnClickResponse() {
+                @Override
+                public void onClick(Object object) {
+                    reloadView();
+                }
+            });
             dialog.show();
         });
 
