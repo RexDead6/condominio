@@ -12,6 +12,7 @@ import com.rex.condominio.R;
 import com.rex.condominio.fragments.DashboardFragment;
 import com.rex.condominio.fragments.admin.ComunidadesFragment;
 import com.rex.condominio.fragments.admin.FamiliasFragment;
+import com.rex.condominio.fragments.admin.UserAdminFragment;
 import com.rex.condominio.utils.SupportPreferences;
 
 public class AdminActivity extends AppCompatActivity {
@@ -34,6 +35,10 @@ public class AdminActivity extends AppCompatActivity {
                     }
                     case R.id.option_familias:{
                         SupportPreferences.loadFrament(new FamiliasFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
+                        return true;
+                    }
+                    case R.id.option_usuarios:{
+                        SupportPreferences.loadFrament(new UserAdminFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.fragment_container);
                         return true;
                     }
                     default:

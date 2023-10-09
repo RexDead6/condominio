@@ -68,6 +68,11 @@ public interface RequestInterface {
     @GET("usuarioInactivo")
     Call<ResponseClient<ArrayList<UsuarioResponse>>> getInactivos();
 
+    @GET("usuarioUrb/{idUrb}")
+    Call<ResponseClient<ArrayList<UsuarioResponse>>> getUserByComunidad(
+            @Path("idUrb") String idUrb
+    );
+
     @Multipart
     @POST("usuario/image")
     Call<ResponseClient<Object>> updateImageUser(
