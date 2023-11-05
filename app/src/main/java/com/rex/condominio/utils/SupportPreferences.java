@@ -35,7 +35,7 @@ import java.util.List;
 
 public class SupportPreferences extends Application {
 
-    public static final String BASE_URL = "http://192.168.3.53:8000/";
+    public static final String BASE_URL = "http://192.168.1.118:8000/";
     // public static final String BASE_URL = "http://condominio.alwaysdata.net/";
     public static final String BASE_URL_ASSETS = BASE_URL+"src/assets/";
     private static SupportPreferences instance;

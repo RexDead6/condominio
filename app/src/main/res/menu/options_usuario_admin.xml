@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/option_admin_up"
+        android:title="Asignar administrador"
+        />
+
+    <item
+        android:id="@+id/option_admin_down"
+        android:title="Remover administrador"
+        />
+
+    <item
+        android:id="@+id/option_urb_up"
+        android:title="Asignar Supervisor"
+        />
+
+    <item
+        android:id="@+id/option_urb_down"
+        android:title="remover Supervisor"
+        />
+</menu>

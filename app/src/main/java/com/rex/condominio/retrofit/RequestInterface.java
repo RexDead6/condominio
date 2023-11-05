@@ -68,6 +68,20 @@ public interface RequestInterface {
     @GET("usuarioInactivo")
     Call<ResponseClient<ArrayList<UsuarioResponse>>> getInactivos();
 
+    @PATCH("rolUsuario/{idUsu}/{rol}")
+    Call<ResponseClient<Void>> updateRol(
+            @Header("Authorization") String token,
+            @Path("idUsu") String idUsu,
+            @Path("rol") String rol
+    );
+
+    @PATCH("usuarioAdminUrb/{idUsu}/{idUrb}")
+    Call<ResponseClient<Void>> updateAdminUrb(
+            @Header("Authorization") String token,
+            @Path("idUsu") String idUsu,
+            @Path("idUrb") String idUrb
+    );
+
     @GET("usuarioUrb/{idUrb}")
     Call<ResponseClient<ArrayList<UsuarioResponse>>> getUserByComunidad(
             @Path("idUrb") String idUrb

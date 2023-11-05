@@ -7,9 +7,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.rex.condominio.R;
@@ -33,6 +36,9 @@ public class UserAdminFragment extends Fragment {
     private RecyclerView recycler_usuarios;
     private View not_found;
     private LottieAnimationView animationView;
+    private EditText et_buscar;
+
+    private UsuariosAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +47,26 @@ public class UserAdminFragment extends Fragment {
         recycler_usuarios = v.findViewById(R.id.recycler_usuarios);
         not_found = v.findViewById(R.id.not_found);
         animationView = v.findViewById(R.id.animationView);
+        et_buscar = v.findViewById(R.id.et_buscar);
+
+        et_buscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (adapter != null){
+                    adapter.getFilter().filter(charSequence);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         call_api();
 
@@ -67,7 +93,18 @@ public class UserAdminFragment extends Fragment {
 
             @Override
             public void doCallBackResponse(ResponseClient<ArrayList<UsuarioResponse>> response) {
-                recycler_usuarios.setAdapter(new UsuariosAdapter(getContext(), response.getData()));
+                adapter = new UsuariosAdapter(getContext(), response.getData(), new ResponseCallback<ResponseClient<Void>>() {
+                    @Override
+                    public Context returnContext() {
+                        return getContext();
+                    }
+
+                    @Override
+                    public void doCallBackResponse(ResponseClient<Void> response) {
+                        call_api();
+                    }
+                });
+                recycler_usuarios.setAdapter(adapter);
                 recycler_usuarios.setLayoutManager(new LinearLayoutManager(getContext()));
                 recycler_usuarios.setVisibility(View.VISIBLE);
             }

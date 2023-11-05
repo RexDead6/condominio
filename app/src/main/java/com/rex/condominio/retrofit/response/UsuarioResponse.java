@@ -14,6 +14,7 @@ public class UsuarioResponse implements Serializable {
     private String telUsu;
     private String imgUsu;
     private ArrayList<ProductoResponse> Productos;
+    private boolean isAdmin;
 
     public UsuarioResponse(int idUsu, RolResponse rol, int statusUsu, String cedUsu, String nomUsu, String apeUsu, String generoUsu, String telUsu, String imgUsu, ArrayList<ProductoResponse> productos) {
         this.idUsu = idUsu;
@@ -106,5 +107,13 @@ public class UsuarioResponse implements Serializable {
 
     public void setProductos(ArrayList<ProductoResponse> productos) {
         Productos = productos;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

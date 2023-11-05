@@ -38,12 +38,30 @@
         android:background="@drawable/card_curve_right_up"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_usuarios"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:visibility="gone" />
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_buscar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/gray_chill"
+                android:hint="Buscar..."
+                android:inputType="number"
+                android:paddingStart="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_usuarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <include
             android:id="@+id/not_found"
