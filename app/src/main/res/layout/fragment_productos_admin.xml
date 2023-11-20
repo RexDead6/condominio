@@ -48,12 +48,45 @@
             android:layout_gravity="center"
             android:visibility="gone"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_productos"
+        <LinearLayout
+            android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:visibility="gone" />
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/layout_pmv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#4FEAE028"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:padding="20dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Usted no posee un pago movil activo"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/redirect_pvm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ver mas"
+                    android:textSize="16sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000CF1"/>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_productos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
