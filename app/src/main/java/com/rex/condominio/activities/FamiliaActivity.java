@@ -51,7 +51,8 @@ public class FamiliaActivity extends AppCompatActivity {
 
         SupportPreferences.loadFrament(new FamiliaFragment(), getSupportFragmentManager().beginTransaction(), false, R.id.container_familia);
 
-        if (Integer.parseInt(new TokenSupport(this).getIdRol()) > 2){
+        String isAdmin = SupportPreferences.getInstance(this).getPreference(SupportPreferences.ADMIN_COMUNIDAD_PREFERENCE);
+        if (isAdmin.equals("false")){
             btn_familias.setVisibility(View.GONE);
         }
     }
@@ -60,8 +61,13 @@ public class FamiliaActivity extends AppCompatActivity {
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.show();
 
+        /*
         Call<ResponseClient<ArrayList<FamiliaResponse>>> getAll = RetrofitClient.getInstance().getRequestInterface().getAllFamilia(
                 SupportPreferences.getInstance(this).getPreference(SupportPreferences.TOKEN_PREFERENCE)
+        );
+        */
+        Call<ResponseClient<ArrayList<FamiliaResponse>>> getAll = RetrofitClient.getInstance().getRequestInterface().getFamByComunidad(
+                ""+SupportPreferences.getInstance(this).getPreferenceInt(SupportPreferences.COMUNIDAD_ACTUAL_ADMIN_PREFERENCE)
         );
         getAll.enqueue(new ResponseCallback<ResponseClient<ArrayList<FamiliaResponse>>>() {
             @Override

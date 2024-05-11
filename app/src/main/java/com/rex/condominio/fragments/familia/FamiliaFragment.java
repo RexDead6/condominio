@@ -60,7 +60,7 @@ public class FamiliaFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_familia, container, false);
 
         tv_desc = v.findViewById(R.id.tv_desc);
-        tv_direccion = v.findViewById(R.id.tv_direccion);
+        // tv_direccion = v.findViewById(R.id.tv_direccion);
         recycler_familia = v.findViewById(R.id.recycler_familia);
         animationView = v.findViewById(R.id.animationView);
         btn_qr = v.findViewById(R.id.btn_qr);

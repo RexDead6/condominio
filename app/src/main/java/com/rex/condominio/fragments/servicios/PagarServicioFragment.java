@@ -92,13 +92,14 @@ public class PagarServicioFragment extends Fragment {
                 pagos.add(new PagosServiciosRequest(
                         "Pago Movil",
                         et_ref.getText().toString().trim(),
-                        servicio.getMontoSer() * servicio.getMesesPorPagar()
+                        monto_total
                 ));
 
                 PagarServicioRequest pagarServicioRequest = new PagarServicioRequest(
                         servicio.getIdSer(),
                         monto_total,
-                        pagos
+                        pagos,
+                        servicio.getMesesPorPagar()
                 );
                 Call<ResponseClient<Object>> call = RetrofitClient.getInstance().getRequestInterface().insertPagoServicio(
                         SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE),

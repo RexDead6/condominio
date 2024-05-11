@@ -44,7 +44,7 @@
                     android:id="@+id/btn_admin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/pago_movil"
+                    android:src="@drawable/baseline_article_24"
                     android:transitionName="pagoMovilTrans"
                     app:backgroundTint="@color/primaryColor"
                     app:tint="@color/white"

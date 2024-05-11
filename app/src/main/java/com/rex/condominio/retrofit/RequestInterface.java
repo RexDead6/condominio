@@ -24,6 +24,7 @@ import com.rex.condominio.retrofit.response.ProductoResponse;
 import com.rex.condominio.retrofit.response.ProveedorResponse;
 import com.rex.condominio.retrofit.response.PushMessageResponse;
 import com.rex.condominio.retrofit.response.ServicioResponse;
+import com.rex.condominio.retrofit.response.StatiticResponse;
 import com.rex.condominio.retrofit.response.TokenResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.UsuarioResponse;
@@ -134,8 +135,11 @@ public interface RequestInterface {
             @Part List<MultipartBody.Part> formData
     );
 
-    @GET("anuncios")
-    Call<ResponseClient<ArrayList<AnuncioResponse>>> getAnuncios(@Header("Authorization") String token);
+    @GET("anuncios/{idUrb}")
+    Call<ResponseClient<ArrayList<AnuncioResponse>>> getAnuncios(
+            @Header("Authorization") String token,
+            @Path("idUrb") String idUrb
+    );
 
     @GET("bancos")
     Call<ResponseClient<ArrayList<BancosResponse>>> getBancos();
@@ -281,5 +285,11 @@ public interface RequestInterface {
     Call<ResponseClient<Object>> insertComunidad(
             @Header("Authorization") String token,
             @Body ComunidadResponse comunidad
+    );
+
+    @GET("comunidadHome/{idCom}")
+    Call<ResponseClient<StatiticResponse>> getStatitic(
+            @Header("Authorization") String token,
+            @Path("idCom") String idCom
     );
 }

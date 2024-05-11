@@ -19,15 +19,18 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.rex.condominio.R;
 import com.rex.condominio.adapters.ProductosVentaAdapter;
 import com.rex.condominio.dialogs.ProgressDialog;
+import com.rex.condominio.dialogs.SelectProductoVentaDialog;
 import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.request.PagoVentaRequest;
 import com.rex.condominio.retrofit.request.ProductoCompraRequest;
 import com.rex.condominio.retrofit.request.VentaRequest;
 import com.rex.condominio.retrofit.response.PagoMovilResponse;
+import com.rex.condominio.retrofit.response.ProductoResponse;
 import com.rex.condominio.retrofit.response.ProveedorResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.UsuarioResponse;
+import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
 
 import java.util.ArrayList;
@@ -39,7 +42,8 @@ public class VentaActivity extends AppCompatActivity {
     private UsuarioResponse usuarioVendedor;
     private RecyclerView recycler_productos;
     private ProductosVentaAdapter adapter;
-    private MaterialButton btn_pagar;
+    private MaterialButton btn_pagar, btn_productos;
+    private ArrayList<ProductoResponse> Productos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +55,27 @@ public class VentaActivity extends AppCompatActivity {
         }
         usuarioVendedor = (UsuarioResponse) getIntent().getExtras().getSerializable("vendedor");
 
-        adapter = new ProductosVentaAdapter(this, usuarioVendedor.getProductos());
+        adapter = new ProductosVentaAdapter(this, Productos);
 
         recycler_productos = findViewById(R.id.recycler_productos);
         btn_pagar = findViewById(R.id.btn_pagar);
+        btn_productos = findViewById(R.id.btn_productos);
 
         recycler_productos.setAdapter(adapter);
         recycler_productos.setLayoutManager(new LinearLayoutManager(this));
+
+        btn_productos.setOnClickListener(V -> {
+            SelectProductoVentaDialog dialog = new SelectProductoVentaDialog(this, usuarioVendedor.getProductos(), new OnClickResponse<ProductoResponse>() {
+                @Override
+                public void onClick(ProductoResponse object) {
+                    Productos.add(object);
+                    adapter = new ProductosVentaAdapter(VentaActivity.this, Productos);
+                    recycler_productos.setAdapter(adapter);
+                    recycler_productos.setLayoutManager(new LinearLayoutManager(VentaActivity.this));
+                }
+            });
+            dialog.show();
+        });
 
         btn_pagar.setOnClickListener(V -> {
             ArrayList<ProductoCompraRequest> productos = adapter.getProductos();

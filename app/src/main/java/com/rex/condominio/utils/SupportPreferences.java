@@ -31,11 +31,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class SupportPreferences extends Application {
 
-    public static final String BASE_URL = "http://192.168.1.135:8000/";
+    public static final String BASE_URL = "http://192.168.1.136:8000/";
     //public static final String BASE_URL = "http://condominio.alwaysdata.net/";
     public static final String BASE_URL_ASSETS = BASE_URL+"src/assets/";
     private static SupportPreferences instance;
@@ -108,14 +109,15 @@ public class SupportPreferences extends Application {
 
     public static String formatCurrency(float currency){
         NumberFormat tf = NumberFormat.getCurrencyInstance();
-        return tf.format(currency).replace("$", "");
+        return tf.format(currency).replace("$", "").replace(",", "#").replace(".", ",").replace("#", ".");
     }
 
     public static String formatDate(String date){
         try {
-            return new SimpleDateFormat("dd/MM/yyyy").format(date);
+            //return new SimpleDateFormat("dd/MM/yyyy").format(new Date(date));
+            return date.substring(8, 10) + "/" + date.substring(5, 7) + "/" + date.substring(0, 4);
         }catch (Exception e){
-            Log.e("FormatDateNoParseable", date);
+            Log.e("FormatDateNoParseable", e.toString());
             return date;
         }
     }

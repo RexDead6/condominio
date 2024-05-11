@@ -47,6 +47,8 @@ public class VentasListaAdapter extends RecyclerView.Adapter<VentasListaAdapter.
     public void onBindViewHolder(@NonNull VentasListaAdapter.ViewHolder holder, int position) {
         holder.tv_numero.setText(data.get(position).getIdVen()+"");
         holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoVen()));
+        holder.tv_ci.setText(data.get(position).getUsuarioVenta().getCedUsu());
+        holder.tv_usuario.setText(data.get(position).getUsuarioVenta().getNomUsu() + " " + data.get(position).getUsuarioVenta().getApeUsu());
         holder.tv_ref.setText(data.get(position).getPagos().get(0).getRefPag());
         holder.btn_pagado.setOnClickListener(V -> onClickResponse.onClick(new String[]{ data.get(position).getIdVen()+"", "2" }));
         holder.btn_recibido.setOnClickListener(V -> onClickResponse.onClick(new String[]{ data.get(position).getIdVen()+"", "3" }));

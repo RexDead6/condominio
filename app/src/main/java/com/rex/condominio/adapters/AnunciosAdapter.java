@@ -38,7 +38,7 @@ public class AnunciosAdapter extends RecyclerView.Adapter<AnunciosAdapter.ViewHo
     public void onBindViewHolder(@NonNull AnunciosAdapter.ViewHolder holder, int position) {
         holder.tv_nombre.setText(data.get(position).getUsuario().getNomUsu() + " " + data.get(position).getUsuario().getApeUsu());
         holder.tv_descripcion.setText(data.get(position).getDescAnu());
-        holder.tv_fecha.setText(data.get(position).getFechaAnu());
+        holder.tv_fecha.setText(SupportPreferences.formatDate(data.get(position).getFechaAnu()));
 
         if (!data.get(position).getImage().equals("")) {
             holder.image.setVisibility(View.VISIBLE);

@@ -1,6 +1,7 @@
 package com.rex.condominio.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 public class TokenSupport {
     private String idUsu;
@@ -9,6 +10,7 @@ public class TokenSupport {
 
     public TokenSupport(Context context){
         String[] tokenData = SupportPreferences.getInstance(context).getPreference(SupportPreferences.TOKEN_PREFERENCE).split("\\|");
+        Log.e("token", SupportPreferences.getInstance(context).getPreference(SupportPreferences.TOKEN_PREFERENCE));
         this.idUsu = tokenData[0];
         this.idFam = tokenData[1];
         this.idRol = tokenData[2];

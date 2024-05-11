@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,7 +40,7 @@ public class ServiciosFragment extends Fragment {
 
     private RecyclerView recycler_servicios;
     private LottieAnimationView animationView;
-    private FloatingActionButton floatingButtom, btn_open_facturas;
+    private ImageView btn_open_facturas, floatingButtom;
     private View view_not_found;
 
     @Override

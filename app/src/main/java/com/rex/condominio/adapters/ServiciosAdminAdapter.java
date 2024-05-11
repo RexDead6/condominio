@@ -51,7 +51,7 @@ public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAd
             holder.tv_monto.setText(SupportPreferences.formatCurrency(data.get(position).getMontoSer())+" $");
         holder.tv_estado.setText((data.get(position).getStatusSer() == 1) ? "Activo" : "Inactivo");
         holder.tv_tipo.setText((data.get(position).getIsMensualSer() == 1) ? "Mensual" : "Pago unico");
-        holder.tv_fecha.setText(data.get(position).getFechaInicioServicio());
+        holder.tv_fecha.setText(SupportPreferences.formatDate(data.get(position).getFechaInicioServicio()));
 
         holder.btn_administrar.setOnClickListener(v -> {
             SupportPreferences.loadFrament(new FacturasAdminFragment(data.get(position).getIdSer()), fragment.getActivity().getSupportFragmentManager().beginTransaction(), true, R.id.container_servicios);
@@ -75,6 +75,8 @@ public class ServiciosAdminAdapter extends RecyclerView.Adapter<ServiciosAdminAd
             tv_estado = itemView.findViewById(R.id.tv_estado);
             tv_fecha = itemView.findViewById(R.id.tv_fecha);
             btn_administrar = itemView.findViewById(R.id.btn_administrar);
+
+
         }
     }
 }

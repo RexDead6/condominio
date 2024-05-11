@@ -71,7 +71,8 @@ public class AnunciosFragment extends Fragment {
 
     private void callRequest(){
         Call<ResponseClient<ArrayList<AnuncioResponse>>> call = RetrofitClient.getInstance().getRequestInterface().getAnuncios(
-                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
+                SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE),
+                SupportPreferences.getInstance(getContext()).getPreferenceInt(SupportPreferences.COMUNIDAD_ACTUAL_PREFERENCE)+""
         );
         call.enqueue(new ResponseCallback<ResponseClient<ArrayList<AnuncioResponse>>>() {
             @Override

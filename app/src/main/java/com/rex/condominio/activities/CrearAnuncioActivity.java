@@ -124,6 +124,7 @@ public class CrearAnuncioActivity extends AppCompatActivity {
                 builder.setType(MultipartBody.FORM);
 
                 builder.addFormDataPart("descAnu", tv_descripcion.getText().toString());
+                builder.addFormDataPart("idUrb", SupportPreferences.getInstance(this).getPreferenceInt(SupportPreferences.COMUNIDAD_ACTUAL_PREFERENCE)+"");
                 if (fileImg != null)
                     builder.addFormDataPart("image", fileImg.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), fileImg));
 

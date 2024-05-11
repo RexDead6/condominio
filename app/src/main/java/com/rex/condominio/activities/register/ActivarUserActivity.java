@@ -103,17 +103,20 @@ public class ActivarUserActivity extends AppCompatActivity {
 
                         @Override
                         public void doCallBackResponse(ResponseClient<UsuarioResponse> response) {
-                            if (response.getData().getStatusUsu() == 1) {
-                                new AlertDialog.Builder(ActivarUserActivity.this)
+                            try {
+                                if (response.getData().getStatusUsu() == 1) {
+                                    new AlertDialog.Builder(ActivarUserActivity.this)
                                         .setMessage("Su usuario ha sido activado, inicie sesion para continuar")
                                         .setPositiveButton("Aceptar", (d, w) -> {
-                                            SupportPreferences.getInstance(ActivarUserActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, "");
-                                            Intent intent = new Intent(ActivarUserActivity.this, LoginActivity.class);
-                                            startActivity(intent);
-                                            finish();
+
+                                                SupportPreferences.getInstance(ActivarUserActivity.this).savePreference(SupportPreferences.TOKEN_PREFERENCE, "");
+                                                Intent intent = new Intent(ActivarUserActivity.this, LoginActivity.class);
+                                                startActivity(intent);
+                                                finish();
                                         }).create().show();
                                 needRunning = false;
                             }
+                            }catch(Exception e) {}
                         }
                     });
 
