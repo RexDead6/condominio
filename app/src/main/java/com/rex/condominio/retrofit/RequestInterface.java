@@ -23,6 +23,7 @@ import com.rex.condominio.retrofit.response.PagoMovilResponse;
 import com.rex.condominio.retrofit.response.ProductoResponse;
 import com.rex.condominio.retrofit.response.ProveedorResponse;
 import com.rex.condominio.retrofit.response.PushMessageResponse;
+import com.rex.condominio.retrofit.response.ReportResponse;
 import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.retrofit.response.StatiticResponse;
 import com.rex.condominio.retrofit.response.TokenResponse;
@@ -291,5 +292,15 @@ public interface RequestInterface {
     Call<ResponseClient<StatiticResponse>> getStatitic(
             @Header("Authorization") String token,
             @Path("idCom") String idCom
+    );
+
+    @GET("servicio_no_pagado/{idSer}")
+    Call<ResponseClient<ReportResponse>> getNoPagados(
+            @Path("idSer") String idSer
+    );
+
+    @GET("servicio_pagado/{idSer}")
+    Call<ResponseClient<ReportResponse>> getPagados(
+            @Path("idSer") String idSer
     );
 }
