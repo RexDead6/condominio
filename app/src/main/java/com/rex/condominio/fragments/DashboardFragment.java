@@ -1,6 +1,7 @@
 package com.rex.condominio.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.rex.condominio.R;
+import com.rex.condominio.activities.PDFActivity;
 import com.rex.condominio.adapters.AnunciosAdapter;
 import com.rex.condominio.adapters.ServiciosPorPagarAdapter;
 import com.rex.condominio.fragments.servicios.PagarServicioFragment;
@@ -23,11 +26,13 @@ import com.rex.condominio.retrofit.ResponseCallback;
 import com.rex.condominio.retrofit.RetrofitClient;
 import com.rex.condominio.retrofit.response.AjusteResponse;
 import com.rex.condominio.retrofit.response.ComunidadResponse;
+import com.rex.condominio.retrofit.response.ReportResponse;
 import com.rex.condominio.retrofit.response.ResponseClient;
 import com.rex.condominio.retrofit.response.ServicioResponse;
 import com.rex.condominio.retrofit.response.StatiticResponse;
 import com.rex.condominio.utils.OnClickResponse;
 import com.rex.condominio.utils.SupportPreferences;
+import com.rex.condominio.utils.TokenSupport;
 
 import java.util.ArrayList;
 
@@ -38,6 +43,7 @@ public class DashboardFragment extends Fragment {
     private Spinner spin_comunidad;
     private TextView label_monto, label_total;
     private RecyclerView recycler_anuncios;
+    private Button btn_censo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class DashboardFragment extends Fragment {
         label_monto = v.findViewById(R.id.label_monto);
         label_total = v.findViewById(R.id.label_total);
         recycler_anuncios = v.findViewById(R.id.recycler_anuncios);
+        btn_censo = v.findViewById(R.id.btn_censo);
 
         Call<ResponseClient<ArrayList<ComunidadResponse>>> callUrb = RetrofitClient.getInstance().getRequestInterface().getComunidadesUsuario(
                 SupportPreferences.getInstance(getContext()).getPreference(SupportPreferences.TOKEN_PREFERENCE)
@@ -99,6 +106,29 @@ public class DashboardFragment extends Fragment {
         });
 
         call_statics();
+
+        if (Integer.parseInt(new TokenSupport(getContext()).getIdRol()) > 1){
+            btn_censo.setVisibility(View.VISIBLE);
+        }
+
+        btn_censo.setOnClickListener(V -> {
+            Call<ResponseClient<ReportResponse>> call = RetrofitClient.getInstance().getRequestInterface().getCenso(
+                    SupportPreferences.getInstance(getContext()).getPreferenceInt(SupportPreferences.COMUNIDAD_ACTUAL_PREFERENCE) + ""
+            );
+            call.enqueue(new ResponseCallback<ResponseClient<ReportResponse>>() {
+                @Override
+                public Context returnContext() {
+                    return getContext();
+                }
+
+                @Override
+                public void doCallBackResponse(ResponseClient<ReportResponse> response) {
+                    Intent intent = new Intent(getContext(), PDFActivity.class);
+                    intent.putExtra("document", response.getData().getName());
+                    getActivity().startActivity(intent);
+                }
+            });
+        });
         return v;
     }
 

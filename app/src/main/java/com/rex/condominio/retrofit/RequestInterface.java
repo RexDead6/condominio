@@ -303,4 +303,9 @@ public interface RequestInterface {
     Call<ResponseClient<ReportResponse>> getPagados(
             @Path("idSer") String idSer
     );
+
+    @GET("usuariosPdf/{idUrb}")
+    Call<ResponseClient<ReportResponse>> getCenso(
+            @Path("idUrb") String idUrb
+    );
 }
